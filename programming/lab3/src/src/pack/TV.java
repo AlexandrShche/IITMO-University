@@ -1,14 +1,13 @@
 package pack;
 
-public final class TV extends Human{
-	public TV(String name) {
-		super(name);
-	}
-	public void appeared() {
-		System.out.print(this.toString() + " appear on screen ");
-	}
+public class TV {
+	String name;
 	
-	public void disappeared() {
-		System.out.println(this.toString() + " disappeared from the screen ");
+	public TV(String name) {
+		this.name = name;
+	}
+	@Override
+	public String toString(){
+		return this.name;
 	}
 }

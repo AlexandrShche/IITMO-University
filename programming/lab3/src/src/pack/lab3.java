@@ -3,23 +3,24 @@ package pack;
 public class lab3 {
 
 	public static void main(String[] args) {
-		Carlson carlson = new Carlson("Carlson");
-		TV announcer = new TV("announcer");
+		Carlson carlson = Carlson.getInstance();
+		TV tv = new TV("TV");
+		TVperson announcer = new TVperson("announcer");
 		Human baby = new Human("Baby");
-		TV sirs = new TV("serious and fat gentelmen");
+		TVperson sirs = new TVperson("serious and fat gentelmen");
+		
 		
 		announcer.smile();
 		carlson.smile(announcer);
 		
 		carlson.push(baby);
-		announcer.disappeared();
+		announcer.disappeared(tv);
 		
-		sirs.appeared();
+		sirs.appeared(tv);
 		sirs.talk();
 		
-		carlson.condition = Condition.IRRITATED;
-		System.out.println("Carlson became irritated");
 		
-		carlson.pushButtons();
+		
+		carlson.pushButtons(tv);
 	}
 }

@@ -1,6 +1,6 @@
 package pack;
 
 public interface shielded {
-	public void appeared();
-	public void disappeared();
+	public void appeared(TV tv);
+	public void disappeared(TV tv);
 }

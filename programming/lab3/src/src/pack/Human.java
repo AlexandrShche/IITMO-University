@@ -16,16 +16,19 @@ public class Human extends Creature{
 		System.out.println(this.toString() + " talking");
 	}
 	
-	public void pushButtons() {
-		System.out.println(this.toString() + " push all buttons");
+	public void pushButtons(TV tv) {
+		System.out.println(this.toString() + " push all buttons of " + tv.toString());
 	}
 	
 	public Condition condition;
+
 	@Override
-	public void appeared() {
+	public void appeared(TV tv) {
+
 	}
 	@Override
-	public void disappeared() {		
+	public void disappeared(TV tv) {
+		
 	}	
 }
 
