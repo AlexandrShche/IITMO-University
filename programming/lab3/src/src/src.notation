@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<notation:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.3/notation" xmlns:style="http://www.eclipse.org/papyrus/infra/gmfdiag/style" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_V5ZVkDg-EeuNt59_fO8F1Q" type="PapyrusUMLClassDiagram" name="NewClassDiagram" measurementUnit="Pixel">
+  <children xmi:type="notation:Shape" xmi:id="_x_OX0Dg-EeuNt59_fO8F1Q" type="Text" fontName="Noto Sans">
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_x_Pl8Dg-EeuNt59_fO8F1Q" source="PapyrusCSSForceValue">
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_x_Pl8Tg-EeuNt59_fO8F1Q" key="lineColor" value="true"/>
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_x_QNADg-EeuNt59_fO8F1Q" key="fontHeight" value="true"/>
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_x_QNATg-EeuNt59_fO8F1Q" key="bold" value="true"/>
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_x_QNAjg-EeuNt59_fO8F1Q" key="italic" value="true"/>
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_x_QNAzg-EeuNt59_fO8F1Q" key="fontColor" value="true"/>
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_x_QNBDg-EeuNt59_fO8F1Q" key="fillColor" value="true"/>
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_yybWYDg-EeuNt59_fO8F1Q" key="description" value="true"/>
+    </eAnnotations>
+    <children xmi:type="notation:BasicDecorationNode" xmi:id="_x_QNBTg-EeuNt59_fO8F1Q" type="DiagramName">
+      <element xsi:nil="true"/>
+    </children>
+    <children xmi:type="notation:BasicDecorationNode" xmi:id="_x_Q0EDg-EeuNt59_fO8F1Q" type="Description">
+      <element xsi:nil="true"/>
+    </children>
+    <element xsi:nil="true"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_x_OX0Tg-EeuNt59_fO8F1Q" x="207" y="180"/>
+  </children>
+  <styles xmi:type="notation:StringValueStyle" xmi:id="_V5ZVkTg-EeuNt59_fO8F1Q" name="diagram_compatibility_version" stringValue="1.4.0"/>
+  <styles xmi:type="notation:DiagramStyle" xmi:id="_V5ZVkjg-EeuNt59_fO8F1Q"/>
+  <styles xmi:type="style:PapyrusDiagramStyle" xmi:id="_V5ZVkzg-EeuNt59_fO8F1Q" diagramKindId="org.eclipse.papyrus.uml.diagram.class">
+    <owner xmi:type="uml:Model" href="src.uml#_LQHCsDg-EeuNt59_fO8F1Q"/>
+  </styles>
+  <element xmi:type="uml:Model" href="src.uml#_LQHCsDg-EeuNt59_fO8F1Q"/>
+</notation:Diagram>
