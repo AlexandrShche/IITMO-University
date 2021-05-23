@@ -1,0 +1,121 @@
+[
+  {
+    "id": 1,
+    "name": "Первый",
+    "coordinates": {
+      "x": 1.0,
+      "y": 1.0
+    },
+    "creationDate": {
+      "date": {
+        "year": 2021,
+        "month": 5,
+        "day": 21
+      },
+      "time": {
+        "hour": 20,
+        "minute": 9,
+        "second": 22,
+        "nano": 561000000
+      }
+    },
+    "salary": 1.0,
+    "position": "ENGINEER",
+    "status": "PROBATION"
+  },
+  {
+    "id": 2,
+    "name": "Второй",
+    "coordinates": {
+      "x": 3.0,
+      "y": 3.0
+    },
+    "creationDate": {
+      "date": {
+        "year": 2021,
+        "month": 5,
+        "day": 21
+      },
+      "time": {
+        "hour": 20,
+        "minute": 9,
+        "second": 48,
+        "nano": 469000000
+      }
+    },
+    "salary": 3.0,
+    "position": "BAKER",
+    "status": "FIRED"
+  },
+  {
+    "id": 3,
+    "name": "Третий",
+    "coordinates": {
+      "x": 2.0,
+      "y": 88.0
+    },
+    "creationDate": {
+      "date": {
+        "year": 2021,
+        "month": 5,
+        "day": 21
+      },
+      "time": {
+        "hour": 20,
+        "minute": 15,
+        "second": 16,
+        "nano": 375000000
+      }
+    },
+    "salary": 1.0,
+    "status": "FIRED"
+  },
+  {
+    "id": 4,
+    "name": "Четвёртый",
+    "coordinates": {
+      "x": 1.0,
+      "y": 1.0
+    },
+    "creationDate": {
+      "date": {
+        "year": 2021,
+        "month": 5,
+        "day": 21
+      },
+      "time": {
+        "hour": 21,
+        "minute": 18,
+        "second": 34,
+        "nano": 366000000
+      }
+    },
+    "salary": 11.0,
+    "position": "BAKER",
+    "status": "FIRED"
+  },
+  {
+    "id": 5,
+    "name": "1",
+    "coordinates": {
+      "x": 1.0,
+      "y": 1.0
+    },
+    "creationDate": {
+      "date": {
+        "year": 2021,
+        "month": 5,
+        "day": 23
+      },
+      "time": {
+        "hour": 0,
+        "minute": 0,
+        "second": 15,
+        "nano": 772000000
+      }
+    },
+    "salary": 1.0,
+    "position": "DEVELOPER",
+    "status": "PROBATION"
+  }
+]

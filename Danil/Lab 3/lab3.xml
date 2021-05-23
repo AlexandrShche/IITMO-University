@@ -1,0 +1,135 @@
+<root>
+	<day>Пн</day>
+	<content>
+		<lecture>
+			<number>1</number>
+			<week>Четная неделя</week>
+			<time>08:20-09:50</time>	
+			<campus>Кронверский пр., д.49, лит.А</campus>
+			<classroom>303/2(УСЛ) АУД.</classroom>
+			<subject>ИНФОРМАТИКА(ЛАБ)</subject>
+			<teacher>Балакшин Павел Валерьевич</teacher>
+			<form>Очно - дистанционный</form>	
+		</lecture>		
+		<lecture>
+			<number>2</number>
+			<week>Нечетная неделя</week>
+			<time>08:20-09:50</time>
+			<campus>Кронверский пр., д.49, лит.А</campus>
+			<classroom>305 АУД.</classroom>
+			<subject>ПРОГРАММИРОВАНИЕ(ЛАБ): 1/2 ГРУППЫ</subject>
+			<teacher>Горбунов Михаил Витальевич</teacher>
+			<form>Очно - дистанционный</form>
+		</lecture>
+		
+		<lecture>
+			<number>3</number>
+			<week>Нечетная неделя</week>
+			<time>08:20-09:50</time>
+			<campus>Кронверский пр., д.49, лит.А</campus>
+			<classroom>303/2(УСЛ) АУД.</classroom>
+			<subject>ПРОГРАММИРОВАНИЕ(ЛАБ): 1/2 ГРУППЫ</subject>
+			<teacher>Сорокин Роман Борисович</teacher>
+			<form>Очно - дистанционный</form>
+		</lecture>
+		
+		<lecture>
+			<number>4</number>
+			<week>Четная неделя</week>
+			<time>10:00-11:30</time>
+			<campus>Кронверский пр., д.49, лит.А</campus>
+			<classroom>303/2(УСЛ) АУД.</classroom>
+			<subject>ИНФОРМАТИКА(ЛАБ)</subject>
+			<teacher>Балакшин Павел Валерьевич</teacher>
+			<form>Очно - дистанционный</form>
+		</lecture>
+		
+		<lecture>
+			<number>5</number>
+			<week>Нечетная неделя</week>
+			<time>10:00-11:30</time>
+			<campus>Кронверский пр., д.49, лит.А</campus>
+			<classroom>305 АУД.</classroom>
+			<subject>ПРОГРАММИРОВАНИЕ(ЛАБ): 1/2 ГРУППЫ</subject>
+			<teacher>Горбунов Михаил Витальевич</teacher>
+			<form>Очно - дистанционный</form>
+		</lecture>
+		
+		<lecture>
+			<number>6</number>
+			<week>Нечетная неделя</week>
+			<time>10:00-11:30</time>
+			<campus>Кронверский пр., д.49, лит.А</campus>
+			<classroom>303/2(УСЛ) АУД.</classroom>
+			<subject>ПРОГРАММИРОВАНИЕ(ЛАБ): 1/2 ГРУППЫ</subject>
+			<teacher>Сорокин Роман Борисович</teacher>
+			<form>Очно - дистанционный</form>
+		</lecture>
+		
+		<lecture>
+			<number>7</number>
+			<week>Четная неделя</week>
+			<time>11:40-13:10</time>
+			<campus>Кронверский пр., д.49, лит.А</campus>
+			<classroom>305 АУД.</classroom>
+			<subject>ОСНОВЫ ПРОФЕССИОНАЛЬНОЙ ДЕЯТЕЛЬНОСТИ(ЛАБ): 1/2 ГРУППЫ</subject>
+			<teacher>Яркеев Александр Сергеевич</teacher>
+			<form>Очно - дистанционный</form>
+		</lecture>
+		
+		<lecture>
+			<number>8</number>
+			<week>Нечетная неделя</week>
+			<time>11:40-13:10</time>
+			<campus>Кронверский пр., д.49, лит.А</campus>
+			<classroom>369А АУД.</classroom>
+			<subject>ДИСКРЕТНАЯ МАТЕМАТИКА(ПРАК): 1/2 ГРУППЫ</subject>
+			<teacher>Поляков Владимир Иванович</teacher>
+			<form>Очно - дистанционный</form>
+		</lecture>
+		
+		<lecture>
+			<number>9</number>
+			<week>Четная неделя</week>
+			<time>11:40-13:10</time>
+			<campus>Кронверский пр., д.49, лит.А</campus>
+			<classroom>303/2(УСЛ) АУД.</classroom>
+			<subject>ОСНОВЫ ПРОФЕССИОНАЛЬНОЙ ДЕЯТЕЛЬНОСТИ(ЛАБ): 1/2 ГРУППЫ</subject>
+			<teacher>Ткешелашвили Нино Мерабиевна</teacher>
+			<form>Очно - дистанционный</form>
+		</lecture>
+		
+		<lecture>
+			<number>10</number>
+			<week>Четная неделя</week>
+			<time>13:30-15:00</time>
+			<campus>Кронверский пр., д.49, лит.А</campus>
+			<classroom>303/2(УСЛ) АУД.</classroom>
+			<subject>ОСНОВЫ ПРОФЕССИОНАЛЬНОЙ ДЕЯТЕЛЬНОСТИ(ЛАБ): 1/2 ГРУППЫ</subject>
+			<teacher>Ткешелашвили Нино Мерабиевна</teacher>
+			<form>Очно - дистанционный</form>
+		</lecture>
+		
+		<lecture>
+			<number>11</number>
+			<week>Нечетная неделя</week>
+			<time>13:30-15:00</time>
+			<campus>Кронверский пр., д.49, лит.А</campus>
+			<classroom>369А АУД.</classroom>
+			<subject>ДИСКРЕТНАЯ МАТЕМАТИКА(ПРАК): 1/2 ГРУППЫ</subject>
+			<teacher>Поляков Владимир Иванович</teacher>
+			<form>Очно - дистанционный</form>
+		</lecture>
+		
+		<lecture>
+			<number>12</number>
+			<week>Четная неделя</week>
+			<time>13:30-15:00</time>
+			<campus>Кронверский пр., д.49, лит.А</campus>
+			<classroom>305 АУД.</classroom>
+			<subject>ОСНОВЫ ПРОФЕССИОНАЛЬНОЙ ДЕЯТЕЛЬНОСТИ(ЛАБ): 1/2 ГРУППЫ</subject>
+			<teacher>Яркеев Александр Сергеевич</teacher>
+			<form>Очно - дистанционный</form>
+		</lecture>
+	</content>
+</root>

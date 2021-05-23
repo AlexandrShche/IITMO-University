@@ -1,0 +1,73 @@
+#!/bin/sh
+mkdir ~/lab0
+
+cd ~/lab0
+mkdir glameow3 luxio2 mothim1
+touch golem1 snover9 trubbish2
+cd glameow3
+mkdir blastoise ferroseed minccino whimsicott
+touch mienfoo oshawott
+cd ../luxio2
+mkdir starmie prinplup hitmonlee
+cd ../mothim1
+mkdir mienshao woobat
+touch gastly venonat ariados
+echo "Способности Haunt
+Venom Levitate Intimidate" > gastly
+echo "Возможности Overland=6 Surface=2
+Jump=3 Power=1 Intelligence=4" > venonat
+echo "satk=6 sdef=6 \nspd=4" > ariados
+cd ~/lab0
+echo "Способности Leer Powder Snow Razor Leaf Icy Wind
+Grasswhistle Swagger Mist Ice Shard Ingrain Wood Hammer Blizzard Sheer
+Cold" > snover9
+echo "Тип покемона POISON NONE" > trubbish2
+echo "Возможности Overland=9 Burrow=5 Jump=2 Power=4
+Intelligence=3 Groundshaper=0 Sinker=0" > golem1
+cd glameow3
+echo "Ходы Bounce Drain Punch Dual Chop Helping Hand Knock Off Low
+Kick Role Play Sleep Talk Snore" > mienfoo
+echo "Развитые способности Shell
+Armor" > oshawott
+
+chmod +wx,-r ~/lab0/glameow3
+chmod go-r ~/lab0/glameow3/blastoise
+chmod 576 ~/lab0/glameow3/whimsicott
+chmod g-rw,o-w ~/lab0/glameow3/mienfoo
+chmod uo-r ~/lab0/glameow3/minccino
+chmod u-r,g-x,o-rw ~/lab0/glameow3/ferroseed
+chmod 404 ~/lab0/glameow3/oshawott
+chmod 444 ~/lab0/golem1
+chmod 307 ~/lab0/luxio2
+chmod 551 ~/lab0/luxio2/prinplup
+chmod g-x,o-rw ~/lab0/luxio2/hitmonlee
+chmod g-w,o-rx ~/lab0/mothim1
+chmod ugo-wx ~/lab0/mothim1/gastly
+chmod u-w,g-r ~/lab0/mothim1/mienshao
+chmod g-r,o-rw ~/lab0/mothim1/venonat ~/lab0/mothim1/ariados
+chmod g-w,o-rx ~/lab0/mothim1/woobat
+chmod g-w,o-rw ~/lab0/snover9
+chmod 640 ~/lab0/trubbish2
+
+ln -s ~/lab0/luxio2 ~/lab0/Copy_53
+ln -s ~/lab0/snover9 ~/lab0/mothim1/ariadossnover
+cat ~/lab0/mothim1/ariados ~/lab0/mothim1/ariados > ~/lab0/snover9_95
+ln ~/lab0/snover9 ~/lab0/glameow3/oshawottsnover
+cp -r  ~/lab0/mothim1 ~/lab0/glameow3/ferroseed
+cp ~/lab0/golem1 ~/lab0/mothim1/woobat/
+cp ~/lab0/golem1 ~/lab0/glameow3/mienfoogolem
+
+#ls -lR ~/lab0
+
+ls ~/lab0/luxio2 2>/dev/null | sort -r
+cat ~/lab0/*1 ~/lab0/*/*1 ~/lab0/*/*/*1 2>>1 | sort -r
+cat ~/lab0/glameow3/oshawott ~/lab0/mothim1/gastly | sort -r
+cat ~/lab0/trubbish2 2>/dev/null | grep -vi 'd$'
+ls -Rtl ~/lab0 2>>/tmp/file | tac | grep -m 3 'se' 
+
+chmod 700 ~/lab0/glameow3
+chmod 200 ~/lab0/trubbish2 ~/lab0/glameow3/oshawott ~/lab0/mothim1/ariadossnov* ~/lab0/glameow3/oshawottsnov*
+rm ~/lab0/trubbish2 ~/lab0/glameow3/oshawott ~/lab0/mothim1/ariadossnov* ~/lab0/glameow3/oshawottsnov*
+chmod -R 700 ~/lab0/mothim1 ~/lab0/glameow3/minccino
+rm -r ~/lab0/mothim1 ~/lab0/glameow3/minccino
+chmod +wx,-r ~/lab0/glameow3

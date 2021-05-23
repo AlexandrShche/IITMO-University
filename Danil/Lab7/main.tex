@@ -1,0 +1,46 @@
+\documentclass[a4paper, 14pt]{article}
+\usepackage[left=2cm,right=2cm,
+top=2cm,bottom=2cm,bindingoffset=0cm]{geometry}
+
+%Russian lenguage
+
+\usepackage[warn]{mathtext}			% для размерности в формулах
+\usepackage[T2A]{fontenc}			% кодировка
+\usepackage[utf8]{inputenc}			% кодировка исходного текста
+\usepackage[english,russian]{babel}	% локализация и переносы
+\usepackage{setspace}
+\usepackage{amsmath,amsfonts,amssymb,amsthm,mathtools} 
+\usepackage{wasysym}
+\usepackage{wrapfig}
+\usepackage{bm}
+\usepackage{caption}
+
+% Номер страницы
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot[R]{\textsf{\textbf{\Huge \thepage}}}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+
+%\captionsetup[figure]{justification=raggedright,singlelinecheck=false,labelformat=empty}
+
+\ifpdf
+	\usepackage{cmap}
+	\usepackage[pdftex]{graphicx}
+	\usepackage{pgfplotstable}
+	\pdfcompresslevel=9
+\else
+	\usepackage{graphicx}
+\fi
+
+\usepackage{float}
+\usepackage{lipsum,multicol}
+\setlength{\columnsep}{1cm}
+
+\begin{document}
+	\input{FirstList.tex}
+	\input{Lab7.tex}
+	
+\end{document}
