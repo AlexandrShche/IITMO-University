@@ -1,6 +1,6 @@
-package server;
+package collection;
 
-import main.worker.Worker;
+import worker.Worker;
 
 import java.util.Collection;
 

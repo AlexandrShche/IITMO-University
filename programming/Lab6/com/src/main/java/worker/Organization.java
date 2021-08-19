@@ -1,4 +1,4 @@
-package item.worker;
+package worker;
 
 public interface Organization extends Comparable<Organization>{
     String getFullName(); //Строка не может быть пустой, Поле не может быть null
@@ -7,4 +7,6 @@ public interface Organization extends Comparable<Organization>{
     void setFullName(String fullName);
     void setAnnualTurnover(Integer annualTurnover);
     void setOfficialAddress(Address officialAddress);
+
+    String toFormalString();
 }

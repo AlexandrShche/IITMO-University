@@ -1,2 +1,7 @@
-package connection;public class ResponseWriter {
+package connection;
+
+import network.Response;
+
+public interface ResponseWriter {
+    Response writeResponse(String s);
 }

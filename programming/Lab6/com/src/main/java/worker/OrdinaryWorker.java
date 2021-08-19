@@ -2,6 +2,7 @@ package worker;
 
 import exceptions.InvalidWorkerFieldException;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.util.SortedSet;
@@ -11,7 +12,7 @@ import java.util.TreeSet;
  * конкретная реализация абстрактного работяги
  * обычный работяга
  */
-public class OrdinaryWorker extends DefaultWorker{
+public class OrdinaryWorker extends DefaultWorker implements Serializable {
     //id уникальный и генерится автоматически
     //name не может быть null, Строка не может быть пустой
     //coordinates не может быть null
@@ -23,20 +24,27 @@ public class OrdinaryWorker extends DefaultWorker{
     //organization может быть null
 
     private static long lastId;
-    static SortedSet<Long> ids = new TreeSet<>();
+    public static SortedSet<Long> ids = new TreeSet<>();
+    public static long getNewId(){
+        lastId++;
+        ids.add(lastId);
+        return lastId;
+    }
 
-
-     public OrdinaryWorker(){
-         while(ids.contains(lastId)) {
+     public OrdinaryWorker() {
+         while (ids.contains(lastId)) {
              ++lastId;
          }
-        setId(lastId);
-        this.creationDate = LocalDateTime.now();
-    }
-
-    private OrdinaryWorker(OrdinaryWorker ordinaryWorker){
-
-    }
+         setId(lastId);
+         this.creationDate = LocalDateTime.now();
+         this.name = "default";
+         this.coordinates = new OrdinaryCoordinates();
+         this.salary = 0.0;
+         this.position = Position.MANAGER;
+         this.status = Status.FIRED;
+         this.endDate = null;
+         this.organization = null;
+     }
 
     public OrdinaryWorker(String name, OrdinaryCoordinates coordinates, Double salary,
                           ZonedDateTime endDate, Position position,
@@ -64,6 +72,10 @@ public class OrdinaryWorker extends DefaultWorker{
     public static void removeIdFromSet(Long id) {
         if(ids != null)
             ids.remove(id);
+    }
+
+    public static void setNewId(OrdinaryWorker ordinaryWorker){
+         ordinaryWorker.setId(lastId);
     }
 
     @Override
@@ -106,5 +118,44 @@ public class OrdinaryWorker extends DefaultWorker{
     public void setId(Long id){
         this.id = id;
         ids.add(id);
+    }
+
+    @Override
+    public String toFormalString() {
+        Worker worker = this;
+        String result;
+        result = "Type: worker" + "\n" +
+                "id: " + worker.getId() + "\n" +
+                "name: " + worker.getName() + "\n"+
+                "coordinates: " + getCoordinatesString() + "\n" +
+                "creation date: " + worker.getCreationDate() + "\n" +
+                "salary: " + worker.getSalary() + "\n" +
+                "end date: " + getEndDateString() + "\n" +
+                "position: " + worker.getPosition() + "\n" +
+                "status: " + worker.getStatus() + "\n" +
+                "organization: " + getOrganizationString();
+
+        return result;
+    }
+
+    private String getCoordinatesString(){
+         if(coordinates == null) return null;
+         return "X: " + coordinates.getX() + " Y: " + coordinates.getY();
+    }
+
+    private String getEndDateString() {
+        if(endDate == null){
+            return "no date specified";
+        } else {
+            return endDate.toString();
+        }
+    }
+
+    private String getOrganizationString(){
+        if(organization == null){
+            return "no organization specified";
+        } else {
+            return organization.toFormalString();
+        }
     }
 }

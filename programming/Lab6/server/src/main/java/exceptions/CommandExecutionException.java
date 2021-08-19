@@ -1,4 +1,4 @@
-package exeptions;
+package exceptions;
 
 /**
  * класс-исключение, кидается во время выполнения команды

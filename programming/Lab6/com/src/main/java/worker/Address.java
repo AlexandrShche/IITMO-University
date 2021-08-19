@@ -1,4 +1,4 @@
-package item.worker;
+package worker;
 
 
 /**
@@ -40,4 +40,6 @@ public interface Address extends Comparable<Address>{
      * @param town
      */
     void setTown(Location town);
+
+    String toFormalString();
 }

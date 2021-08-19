@@ -1,9 +1,12 @@
-package main;
+package collection;
 
+import com.fatboyindustrial.gsonjavatime.Converters;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
-import main.worker.OrdinaryWorker;
-import main.worker.Worker;
+import worker.OrdinaryWorker;
+import worker.Worker;
+
 import java.io.FileReader;
 import java.lang.reflect.Type;
 import java.util.LinkedList;
@@ -11,7 +14,7 @@ import java.util.LinkedList;
 /**
  * Class to parse workers from json file
  */
-public class JSONFileWorkerReader implements WorkerReader{
+public class JSONFileWorkerReader implements WorkerReader {
     private String dataFileName;
 
     public JSONFileWorkerReader(String dataFileName){
@@ -20,9 +23,14 @@ public class JSONFileWorkerReader implements WorkerReader{
 
     @Override
     public LinkedList<Worker> getWorkers() {
-        String jsonString = getJSONString();
+        String jsonString;
+        try {
+            jsonString = getJSONString();
+        } catch (NullPointerException npe){
+            jsonString = "";
+        }
         jsonString = setNewIds(jsonString);
-        Gson gson = new Gson();
+        final Gson gson = Converters.registerAll(new GsonBuilder()).create();
         LinkedList<Worker> result;
         Type type = new TypeToken<LinkedList<OrdinaryWorker>>(){}.getType();
         result = gson.fromJson(jsonString, type);
@@ -40,22 +48,27 @@ public class JSONFileWorkerReader implements WorkerReader{
             }
             fileReader.close();
             jsonString = new String(sb);
-
         }catch (Exception e){
             System.err.println("We have some problems with file.");
+            e.printStackTrace();
             if(e.getMessage() != null){
-                System.out.println(e.getMessage());
+                System.err.println(e.getMessage());
             }
         }
-        return jsonString;
+        if(jsonString != null) {
+            return jsonString;
+        } else{
+            throw new NullPointerException();
+        }
     }
 
     private String setNewIds(String jsonString){
         String result;
-        result = jsonString.replaceAll("\"id\": \\d++", "\"id\": number");
-        Integer count = 1;
+        result = jsonString.replaceAll("\"id\": \\d+", "\"id\": number");
+        int count = 1;
         while(result.contains("number")){
-            result = result.replaceFirst("number", count.toString());
+            result = result.replaceFirst("number", Integer.toString(count));
+            OrdinaryWorker.ids.add((long) count);
             count++;
         }
         return result;

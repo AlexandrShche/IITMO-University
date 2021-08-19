@@ -1,8 +1,9 @@
 package worker;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public abstract class DefaultCoordinates implements Coordinates{
+public abstract class DefaultCoordinates implements Coordinates, Serializable {
     protected Double x;
     protected float y;
 

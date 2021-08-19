@@ -1,12 +1,24 @@
 package collection;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import worker.CollectionOfWorkersManager;
+import worker.Worker;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.LinkedList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-class ListOfWorkerManagerTest {
 
+class ListOfWorkerManagerTest {
+    String dataFileName = "/home/alexander/HomeWorks/programming/Lab6/server/src/test/java/collection/testData.json";
+    CollectionOfWorkersManager collectionOfWorkersManager =
+            new ListOfWorkerManager(new JSONFileWorkerReader(dataFileName), new JSONFileWorkerWriter(dataFileName));
     @Test
     void getWorkerByNumber() {
+
     }
 
     @Test
@@ -15,6 +27,8 @@ class ListOfWorkerManagerTest {
 
     @Test
     void getInfo() {
+        collectionOfWorkersManager.parseDataToCollection();
+        System.out.println(collectionOfWorkersManager.getInfo());
     }
 
     @Test
@@ -51,6 +65,13 @@ class ListOfWorkerManagerTest {
 
     @Test
     void getAscending() {
+        List<Worker> ascendingListFromManager = collectionOfWorkersManager.getAscending();
+        List<Worker> ascendingListFromStream = new ArrayList<>();
+        for (Worker worker : collectionOfWorkersManager.getListOfWorkers()) {
+            ascendingListFromStream.add(worker);
+        }
+        ascendingListFromStream.sort(Worker::compareTo);
+        System.out.println(ascendingListFromManager.equals(ascendingListFromStream));
     }
 
     @Test
@@ -59,6 +80,12 @@ class ListOfWorkerManagerTest {
 
     @Test
     void parseDataToCollection() {
+        collectionOfWorkersManager.parseDataToCollection();
+        Worker firstWorkerBefore = collectionOfWorkersManager.getHead();
+        collectionOfWorkersManager.save();
+        collectionOfWorkersManager.parseDataToCollection();
+        Worker firstWorkerAfter = collectionOfWorkersManager.getHead();
+        Assertions.assertEquals(firstWorkerAfter.toFormalString(), firstWorkerBefore.toFormalString());
     }
 
     @Test

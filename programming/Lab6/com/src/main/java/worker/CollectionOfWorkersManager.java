@@ -1,6 +1,9 @@
-package collection;
+package worker;
+
 import worker.Worker;
 import worker.Organization;
+
+import java.util.Collection;
 import java.util.LinkedList;
 
 public interface CollectionOfWorkersManager {
@@ -13,7 +16,7 @@ public interface CollectionOfWorkersManager {
     void save();
     Worker getHead();
     Worker removeHead();
-    boolean addIfMin(Worker worker);
+    void addIfMin(Worker worker);
     long countLessThanOrganization(Organization organization);
     LinkedList getAscending();
     Double[] getFieldDescendingSalary();
@@ -21,4 +24,5 @@ public interface CollectionOfWorkersManager {
     int getSize();
     void saveBeforeDangerActions();
     void recover();
+    Collection<Worker> getListOfWorkers();
 }

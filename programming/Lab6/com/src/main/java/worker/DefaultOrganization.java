@@ -1,8 +1,9 @@
 package worker;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public abstract class DefaultOrganization implements Organization{
+public abstract class DefaultOrganization implements Organization, Serializable {
     protected String fullName;
     protected Integer annualTurnover;
     protected Address officialAddress;
@@ -34,6 +35,15 @@ public abstract class DefaultOrganization implements Organization{
     @Override
     public void setOfficialAddress(Address officialAddress) {
         this.officialAddress = officialAddress;
+    }
+
+    @Override
+    public String toFormalString() {
+        String result;
+        result = "Full name: " + fullName + "\n" +
+                "Annual turnover: " + String.valueOf(annualTurnover) + "\n" +
+                "Official address: " + officialAddress.toFormalString();
+        return result;
     }
 
     @Override

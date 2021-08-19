@@ -1,10 +1,16 @@
-package command.command;
+package command;
 
+import worker.OrdinaryWorker;
 import worker.Worker;
 
-public abstract class CommandWithWorkerArg implements CommandWithArg{
+import java.io.Serializable;
+
+public abstract class CommandWithWorkerArg implements CommandWithArg, Serializable {
     protected Worker worker;
-    public void setArg(Worker worker) {
+    public void setArg(OrdinaryWorker worker) {
         this.worker = worker;
+    }
+    public OrdinaryWorker getWorker(){
+        return (OrdinaryWorker) worker;
     }
 }

@@ -1,4 +1,4 @@
-package exeptions;
+package exceptions;
 
 /**
  * сигнализирует о попытке выставить адрес, не отвечающий формату

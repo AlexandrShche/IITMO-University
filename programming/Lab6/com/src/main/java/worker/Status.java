@@ -1,4 +1,4 @@
-package item.worker;
+package worker;
 
 public enum Status {
     FIRED,

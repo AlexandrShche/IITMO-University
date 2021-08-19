@@ -1,8 +1,20 @@
-package command.command;
+package command;
 
-public class AddCommand extends CommandWithWorkerArg{
+import worker.CollectionOfWorkersManager;
+import worker.Worker;
+
+import java.io.Serializable;
+
+public class AddCommand extends CommandWithWorkerArg implements Serializable{
+    private String result;
+
+    public void execute(CollectionOfWorkersManager collectionOfWorkersManager) {
+        collectionOfWorkersManager.addWorker(worker);
+        result = "worker was added";
+    }
+
     @Override
-    public void execute() {
-
+    public String getResult() {
+        return result;
     }
 }

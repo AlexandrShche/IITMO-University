@@ -1,8 +1,9 @@
 package worker;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public abstract class DefaultLocation implements Location{
+public abstract class DefaultLocation implements Location, Serializable {
     protected Double x;
     protected double y;
     protected String name;

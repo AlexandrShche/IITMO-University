@@ -1,22 +1,25 @@
-package main;
+package collection;
+
+import exceptions.NoSuchWorkerException;
+import exceptions.NotTheSmallestException;
+import worker.CollectionOfWorkersManager;
+import worker.Organization;
+import worker.Worker;
+import worker.OrdinaryWorker;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.LinkedList;
-
-import exeptions.NoSuchWorkerException;
-import main.worker.*;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
- * concrete implementation CollectionOfWorkersManager for LinkedList-collection
+ * concrete implementation worker.CollectionOfWorkersManager for LinkedList-collection
  */
-public class ListOfWorkerManager implements CollectionOfWorkerManager{
-    private ZonedDateTime creationDate;
-    private LinkedList<Worker> listOfWorkers = new LinkedList<Worker>();
-    private LinkedList<Worker> bufferListOfWorkers = new LinkedList<Worker>();
-    private WorkerWriter workerWriter;
-    private WorkerReader workerReader;
+public class ListOfWorkerManager implements CollectionOfWorkersManager {
+    protected ZonedDateTime creationDate;
+    protected LinkedList<Worker> listOfWorkers = new LinkedList<>();
+    protected LinkedList<Worker> bufferListOfWorkers = new LinkedList<>();
+    protected WorkerWriter workerWriter;
+    protected WorkerReader workerReader;
 
     public ListOfWorkerManager(WorkerReader jsonFileWorkerReader, WorkerWriter jsonFileWorkerWriter){
         creationDate = ZonedDateTime.now();
@@ -25,12 +28,13 @@ public class ListOfWorkerManager implements CollectionOfWorkerManager{
     }
 
     @Override
-    public Worker getWorker(int number) {
+    public Worker getWorkerByNumber(int number) {
         return listOfWorkers.get(number);
     }
 
     @Override
-    public void addWorker(Worker worker){
+    public void addWorker(Worker worker) {
+        worker.setId(OrdinaryWorker.getNewId());
         listOfWorkers.add(worker);
     }
 
@@ -39,15 +43,15 @@ public class ListOfWorkerManager implements CollectionOfWorkerManager{
         DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MMMM-yyyy");
         String result = "Collection: linked list of workers " +
                 "\nCreation date: " + creationDate.format(format) +
-                "\nNumber of elements: " + listOfWorkers.size();
+                "\nNumber of elements: " + listOfWorkers.stream().count();
         return result;
     }
 
     @Override
-    public void updateWorkerById(long id, Worker worker) {
+    public void updateWorkerById(long id, Worker newWorker) {
         int index = listOfWorkers.indexOf(getWorkerByID(id));
         listOfWorkers.remove(index);
-        listOfWorkers.add(index, worker);
+        listOfWorkers.add(index, newWorker);
     }
 
     @Override
@@ -75,41 +79,30 @@ public class ListOfWorkerManager implements CollectionOfWorkerManager{
         OrdinaryWorker worker = (OrdinaryWorker) listOfWorkers.getFirst();
         OrdinaryWorker.removeIdFromSet(worker.getId());
         return listOfWorkers.remove();
-
     }
 
     @Override
-    public boolean addIfMin(Worker worker) {
-        Worker min = Collections.min(listOfWorkers);
+    public void addIfMin(Worker worker) {
+        Worker min = listOfWorkers.stream().min(Worker::compareTo).orElse(null);
+        assert min != null;
         if (worker.compareTo(min) < 0){
             listOfWorkers.add(worker);
-            return true;
+        } else {
+            throw new NotTheSmallestException();
         }
-        return false;
+
     }
 
     @Override
     public long countLessThanOrganization(Organization organization) {
-        LinkedList<Worker> list = this.listOfWorkers;
-        for (Worker w : listOfWorkers){
-            if(w.getOrganization().compareTo(organization) < 0){
-                list.add(w);
-            }
-        }
-        return 0;
+        long count;
+        count = listOfWorkers.stream().filter(worker -> worker.getOrganization().compareTo(organization) < 0).count();
+        return count;
     }
 
     @Override
     public LinkedList getAscending() {
-        LinkedList<Worker> list = this.listOfWorkers;
-        Comparator<Worker> comparator = new Comparator<Worker>(){
-            @Override
-            public int compare(Worker worker, Worker t1) {
-                return worker.compareTo(t1);
-            }
-        };
-        list.sort(comparator);
-        return list;
+        return (LinkedList) listOfWorkers.stream().sorted(Comparator.comparing(Worker::getName)).collect(Collectors.toList());
     }
 
     @Override
@@ -127,7 +120,7 @@ public class ListOfWorkerManager implements CollectionOfWorkerManager{
     public void parseDataToCollection() {
        listOfWorkers = (LinkedList<Worker>) workerReader.getWorkers();
     }
-
+    
     @Override
     public int getSize() {
         return listOfWorkers.size();
@@ -143,6 +136,10 @@ public class ListOfWorkerManager implements CollectionOfWorkerManager{
         this.listOfWorkers = bufferListOfWorkers;
     }
 
+    @Override
+    public Collection<Worker> getListOfWorkers() {
+        return listOfWorkers;
+    }
 
     public Worker getWorkerByID(long id){
         if(!listOfWorkers.isEmpty()) {
@@ -154,5 +151,4 @@ public class ListOfWorkerManager implements CollectionOfWorkerManager{
         }
         throw new NoSuchWorkerException();
     }
-
 }

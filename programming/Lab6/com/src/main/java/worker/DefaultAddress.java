@@ -1,8 +1,9 @@
 package worker;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public abstract class DefaultAddress implements Address{
+public abstract class DefaultAddress implements Address, Serializable {
 
     protected String street;
     protected String zipCode;

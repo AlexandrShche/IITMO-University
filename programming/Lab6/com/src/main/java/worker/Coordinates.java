@@ -1,4 +1,4 @@
-package item.worker;
+package worker;
 
 public interface Coordinates extends Comparable<Coordinates>{
     Double getX(); //Поле не может быть null

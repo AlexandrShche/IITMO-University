@@ -1,9 +1,9 @@
-package item.worker;
+package worker;
 
 public interface Worker extends Comparable<Worker>{
     Long getId();
     String getName();
-    Coordinates getCoordinates();
+    OrdinaryCoordinates getCoordinates();
     java.time.LocalDateTime getCreationDate();
     Double getSalary();
     java.time.ZonedDateTime getEndDate();
@@ -20,4 +20,6 @@ public interface Worker extends Comparable<Worker>{
     void setPosition(Position position);
     void setStatus(Status status);
     void setOrganization(Organization organization);
+
+    String toFormalString();
 }

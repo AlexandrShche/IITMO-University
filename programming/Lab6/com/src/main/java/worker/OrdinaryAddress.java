@@ -2,7 +2,9 @@ package worker;
 
 import exceptions.InvalidWorkerFieldException;
 
-public class OrdinaryAddress extends DefaultAddress {
+import java.io.Serializable;
+
+public class OrdinaryAddress extends DefaultAddress implements Serializable {
 
     //street может быть null
     //zipCode не может быть null
@@ -18,5 +20,25 @@ public class OrdinaryAddress extends DefaultAddress {
     public void setTown(Location town){
         if(town == null) throw new InvalidWorkerFieldException();
         this.town = town;
+    }
+
+    @Override
+    public String toFormalString() {
+        String streetString, zipCodeString, townString;
+        if(street == null){
+            streetString = "there is no street";
+        } else {
+            streetString = street;
+        }
+        if (town == null){
+            townString = "there is no town";
+        } else {
+            townString = town.toFormalString();
+        }
+        zipCodeString = zipCode;
+
+        return "Street: " + streetString + "\n" +
+                "Zip code: " + zipCodeString + "\n" +
+                "Town: " + townString;
     }
 }

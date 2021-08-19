@@ -1,5 +1,7 @@
 package worker;
 
+import java.io.Serializable;
+import java.security.SecureRandom;
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.util.Objects;
@@ -8,10 +10,10 @@ import java.util.Objects;
  * абстрактный класс, реализующий интерфейс работяга
  * дефолтный работяга
  */
-public abstract class DefaultWorker implements Worker{
+public abstract class DefaultWorker implements Worker, Serializable {
     protected Long id;
     protected String name;
-    protected Coordinates coordinates;
+    protected OrdinaryCoordinates coordinates;
     protected LocalDateTime creationDate;
     protected Double salary;
     protected ZonedDateTime endDate;
@@ -52,7 +54,7 @@ public abstract class DefaultWorker implements Worker{
     }
 
     @Override
-    public Coordinates getCoordinates() {
+    public OrdinaryCoordinates getCoordinates() {
         return coordinates;
     }
 
@@ -129,5 +131,10 @@ public abstract class DefaultWorker implements Worker{
     @Override
     public void setOrganization(Organization organization) {
         this.organization = organization;
+    }
+
+    @Override
+    public String toFormalString(){
+        return "тут должна быть formal string от дефолтного воркера";
     }
 }

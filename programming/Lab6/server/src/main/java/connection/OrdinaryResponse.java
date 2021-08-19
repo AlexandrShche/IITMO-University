@@ -1,6 +1,9 @@
-package network;
+package connection;
 
-public class OrdinaryResponse implements Response{
+
+import java.io.Serializable;
+
+public class OrdinaryResponse implements Serializable {
     String message;
     boolean success;
 
@@ -9,12 +12,10 @@ public class OrdinaryResponse implements Response{
         this.success = success;
     }
 
-    @Override
     public String getMessage() {
         return message;
     }
 
-    @Override
     public boolean getSuccess() {
         return success;
     }

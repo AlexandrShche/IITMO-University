@@ -2,7 +2,9 @@ package worker;
 
 import exceptions.InvalidWorkerFieldException;
 
-public class OrdinaryOrganization extends DefaultOrganization{
+import java.io.Serializable;
+
+public class OrdinaryOrganization extends DefaultOrganization implements Serializable {
     //fullName не может быть пустой, fullName не может быть null
     //annualTurnover может быть null, Значение поля должно быть больше 0
     //officialAddress может быть null
