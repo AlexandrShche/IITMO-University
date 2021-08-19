@@ -1,0 +1,22 @@
+package worker;
+
+import exceptions.InvalidWorkerFieldException;
+
+public class OrdinaryOrganization extends DefaultOrganization{
+    //fullName не может быть пустой, fullName не может быть null
+    //annualTurnover может быть null, Значение поля должно быть больше 0
+    //officialAddress может быть null
+    @Override
+    public void setFullName(String fullName){
+        if(fullName == null || fullName.length() == 0) throw new InvalidWorkerFieldException();
+        this.fullName = fullName;
+    }
+
+    @Override
+    public void setAnnualTurnover(Integer annualTurnover){
+        if(annualTurnover != null){
+            if(fullName.length() == 0) throw new InvalidWorkerFieldException();
+        }
+        this.annualTurnover = annualTurnover;
+    }
+}
