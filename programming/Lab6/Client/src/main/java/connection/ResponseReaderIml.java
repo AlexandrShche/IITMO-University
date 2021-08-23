@@ -1,6 +1,7 @@
 package connection;
 
-import javax.xml.ws.Response;
+import network.Response;
+
 import java.io.*;
 import java.nio.channels.SocketChannel;
 
@@ -9,7 +10,7 @@ public class ResponseReaderIml implements ResponseReader{
     public Response getResponse(SocketChannel socketChannel) throws IOException, ClassNotFoundException {
         byte[] bytes = new byte[16384];
         InputStream stream = socketChannel.socket().getInputStream();
-        stream.read();
+        stream.read(bytes);
         return deserializeResponse(bytes);
     }
 
@@ -18,5 +19,6 @@ public class ResponseReaderIml implements ResponseReader{
         ObjectInputStream stream = new ObjectInputStream(byteStream);
         return (Response) stream.readObject();
     }
+
 }
 

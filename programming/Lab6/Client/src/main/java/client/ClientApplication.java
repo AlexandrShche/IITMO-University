@@ -1,7 +1,7 @@
-package Client;
+package client;
 
-import clientCommand.ExitCommand;
-import clientCommand.HelpCommand;
+import client_command.ExitCommand;
+import client_command.HelpCommand;
 import command.*;
 import connection.*;
 import network.Request;
@@ -51,6 +51,7 @@ public class ClientApplication implements Application {
                 clientWriter.write("Problems with input and output in program");
             } catch (ClassNotFoundException e) {
                 System.out.println("Problems with deserialization");
+                e.printStackTrace();
             }
         }
     }
@@ -60,16 +61,22 @@ public class ClientApplication implements Application {
         if(command instanceof ExitCommand || command instanceof HelpCommand){
             command.execute();
         } else {
-            communicateWithServer();
+            communicateWithServer(command);
         }
     }
 
-    private void communicateWithServer() throws IOException, ClassNotFoundException {
-        SocketChannel socketChannel = connectionManager.openConnection(address, port);
-        Request request = requestWriter.writeRequest(command);
-        requestSender.SendRequest(request, socketChannel);
-        Response response = (Response) responseReader.getResponse(socketChannel);
-        clientWriter.write(response.getMessage());
+    private void communicateWithServer(Command command) throws ClassNotFoundException {
+        try {
+            SocketChannel socketChannel = connectionManager.openConnection(address, port);
+            Request request = requestWriter.writeRequest(command);
+            requestSender.initOutputStream(socketChannel);
+            requestSender.sendRequest(request, socketChannel);
+            Response response = responseReader.getResponse(socketChannel);
+            clientWriter.write(response.getMessage());
+            socketChannel.close();
+        } catch (IOException ioe){
+            System.err.println(bundle.getString("problems_with_connection_message"));
+        }
     }
 
     @Override

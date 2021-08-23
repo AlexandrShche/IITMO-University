@@ -6,6 +6,6 @@ import network.Request;
 public class OrdinaryRequestWriter implements RequestWriter{
     @Override
     public Request writeRequest(Command command) {
-        return new OrdinaryRequest(command);
+        return new Request(command);
     }
 }

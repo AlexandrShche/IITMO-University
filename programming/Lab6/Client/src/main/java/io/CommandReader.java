@@ -1,4 +1,4 @@
-package commadReader;
+package io;
 
 import command.Command;
 

@@ -1,6 +1,7 @@
 package connection;
 
 import network.Request;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
@@ -9,9 +10,12 @@ import java.nio.channels.SocketChannel;
 
 public class OrdinaryRequestSender implements RequestSender {
     private OutputStream stream;
-    @Override
-    public void SendRequest(Request request, SocketChannel socketChannel) throws IOException {
+    public void initOutputStream(SocketChannel socketChannel) throws IOException {
         stream = socketChannel.socket().getOutputStream();
+    }
+
+    @Override
+    public void sendRequest(Request request, SocketChannel socketChannel) throws IOException {
         ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
         ObjectOutputStream objectOutputStream = new ObjectOutputStream(byteStream);
         objectOutputStream.writeObject(request);

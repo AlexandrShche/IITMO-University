@@ -1,0 +1,29 @@
+ORG	0x564
+START: 	LD 	ADDR 
+	ST 	I
+LOOP1: 	IN 	5
+	AND	#0x40 
+	BEQ	LOOP1 
+	IN 	4
+	SWAB
+	ST 	(I)
+	AND 	MASK1
+	CMP	VAL1
+	BEQ 	HALT 
+LOOP2: 	IN	5
+	AND 	#0x40 
+	BEQ 	LOOP2 
+	IN 	4
+	OR	(I)
+	ST 	(I)+
+	AND	MASK2
+	CMP	VAL2
+	BEQ	HALT 
+	BR 	LOOP1 
+HALT: 	HLT
+ADDR:	WORD	0x5BB
+I:	WORD	0
+MASK1:	WORD	0xFF00 ;берём первый символ
+MASK2: 	WORD	0x00FF ;берём второй символ
+VAL1:	WORD	0x0A00 ;переменная для проверки на стоп символ, если он первый в паре
+VAL2:	WORD 	0x000A ;переменная для проверки на стоп символ, если он второй в паре

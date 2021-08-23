@@ -1,6 +1,7 @@
 package connection;
 
-import javax.xml.ws.Response;
+import network.Response;
+
 import java.io.IOException;
 import java.nio.channels.SocketChannel;
 
