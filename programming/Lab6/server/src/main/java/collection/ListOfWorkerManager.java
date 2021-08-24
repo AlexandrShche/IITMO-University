@@ -86,23 +86,23 @@ public class ListOfWorkerManager implements CollectionOfWorkersManager {
         Worker min = listOfWorkers.stream().min(Worker::compareTo).orElse(null);
         assert min != null;
         if (worker.compareTo(min) < 0){
+            worker.setId(OrdinaryWorker.getNewId());
             listOfWorkers.add(worker);
         } else {
             throw new NotTheSmallestException();
         }
-
     }
 
     @Override
     public long countLessThanOrganization(Organization organization) {
         long count;
-        count = listOfWorkers.stream().filter(worker -> worker.getOrganization().compareTo(organization) < 0).count();
+        count = listOfWorkers.stream().filter(worker -> worker.getOrganization() != null).filter(worker -> worker.getOrganization().compareTo(organization) < 0).count();
         return count;
     }
 
     @Override
-    public LinkedList getAscending() {
-        return (LinkedList) listOfWorkers.stream().sorted(Comparator.comparing(Worker::getName)).collect(Collectors.toList());
+    public List<Worker> getAscending() {
+        return listOfWorkers.stream().sorted(Comparator.comparing(Worker::getName)).collect(Collectors.toList());
     }
 
     @Override
@@ -113,6 +113,7 @@ public class ListOfWorkerManager implements CollectionOfWorkersManager {
             result[i] = w.getSalary();
             i++;
         }
+        Arrays.sort(result, Collections.reverseOrder());
         return result;
     }
 
@@ -139,6 +140,11 @@ public class ListOfWorkerManager implements CollectionOfWorkersManager {
     @Override
     public Collection<Worker> getListOfWorkers() {
         return listOfWorkers;
+    }
+
+    @Override
+    public boolean collectionIsEmpty() {
+        return listOfWorkers.isEmpty();
     }
 
     public Worker getWorkerByID(long id){

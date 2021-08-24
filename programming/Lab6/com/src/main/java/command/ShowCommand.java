@@ -22,4 +22,12 @@ public class ShowCommand extends SimpleCommand implements Serializable {
     public String getResult() {
         return result;
     }
+
+    @Override
+    public boolean equals(Object o){
+        if(o instanceof ShowCommand){
+            return true;
+        }
+        return false;
+    }
 }

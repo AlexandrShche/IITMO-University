@@ -9,11 +9,15 @@ public class AddIfMinCommand extends CommandWithWorkerArg implements Serializabl
 
     @Override
     public void execute(CollectionOfWorkersManager collectionOfWorkersManager) {
-        try {
-            collectionOfWorkersManager.addIfMin(worker);
-            result = "worker was added";
-        } catch (NotTheSmallestException ntse) {
-            result = "Not the smallest";
+        if(collectionOfWorkersManager.collectionIsEmpty()){
+            collectionOfWorkersManager.addWorker(worker);
+        } else {
+            try {
+                collectionOfWorkersManager.addIfMin(worker);
+                result = "worker was added";
+            } catch (NotTheSmallestException ntse) {
+                result = "Not the smallest";
+            }
         }
     }
     @Override

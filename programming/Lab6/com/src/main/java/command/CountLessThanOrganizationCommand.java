@@ -8,8 +8,16 @@ public class CountLessThanOrganizationCommand extends CommandWithOrganizationArg
     String result;
     @Override
     public void execute(CollectionOfWorkersManager collectionOfWorkersManager) {
-        long res = collectionOfWorkersManager.countLessThanOrganization(organization);
-        result = String.valueOf(res);
+        if(organization == null){
+            result = "как сравнивать с null? Я не знаю";
+        } else {
+            if (collectionOfWorkersManager.collectionIsEmpty()) {
+                result = "collection is empty";
+            } else {
+                long res = collectionOfWorkersManager.countLessThanOrganization(organization);
+                result = String.valueOf(res);
+            }
+        }
     }
 
     public String getResult(){

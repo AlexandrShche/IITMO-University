@@ -9,12 +9,24 @@ public class RemoveHeadCommand extends SimpleCommand implements Serializable {
     String result;
     @Override
     public void execute(CollectionOfWorkersManager collectionOfWorkersManager) {
-         Worker w = collectionOfWorkersManager.removeHead();
-         result = w.toFormalString();
+        if(collectionOfWorkersManager.collectionIsEmpty()) {
+            result = "collection is empty";
+        } else {
+            Worker w = collectionOfWorkersManager.removeHead();
+            result = w.toFormalString();
+        }
     }
 
     @Override
     public String getResult() {
         return result;
+    }
+
+    @Override
+    public boolean equals(Object o){
+        if(o instanceof RemoveHeadCommand){
+            return true;
+        }
+        return false;
     }
 }

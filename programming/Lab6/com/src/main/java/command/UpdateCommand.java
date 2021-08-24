@@ -1,5 +1,6 @@
 package command;
 
+import exceptions.NoSuchWorkerException;
 import worker.CollectionOfWorkersManager;
 import worker.Worker;
 
@@ -15,12 +16,22 @@ public class UpdateCommand extends CommandWithWorkerArg implements SimpleCommand
 
     @Override
     public void execute(CollectionOfWorkersManager collectionOfWorkersManager) {
-        collectionOfWorkersManager.updateWorkerById(id, worker);
-        result = "Worker has been updated";
+        if(collectionOfWorkersManager.collectionIsEmpty()) {
+            result = "collection is empty";
+        } else {
+            try {
+                collectionOfWorkersManager.updateWorkerById(id, worker);
+                result = "Worker has been updated";
+            } catch (NoSuchWorkerException nswe){
+                result = "Worker was not found";
+            }
+        }
     }
 
     @Override
     public String getResult() {
         return result;
     }
+
+
 }

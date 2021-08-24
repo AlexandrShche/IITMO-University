@@ -8,17 +8,29 @@ public class PrintFieldDescendingSalaryCommand extends SimpleCommand implements 
     String result;
     @Override
     public void execute(CollectionOfWorkersManager collectionOfWorkersManager) {
-        Double[] doubles = collectionOfWorkersManager.getFieldDescendingSalary();
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("Salaries of employees in descending order:");
-        for (Double d:doubles) {
-            stringBuilder.append(d.toString());
+        if(collectionOfWorkersManager.collectionIsEmpty()) {
+            result = "collection is empty";
+        } else {
+            Double[] doubles = collectionOfWorkersManager.getFieldDescendingSalary();
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.append("Salaries of employees in descending order:\n");
+            for (Double d : doubles) {
+                stringBuilder.append(d.toString() + "\n");
+            }
+            result = stringBuilder.toString();
         }
-        result = stringBuilder.toString();
     }
 
     @Override
     public String getResult() {
         return result;
+    }
+
+    @Override
+    public boolean equals(Object o){
+        if(o instanceof PrintFieldDescendingSalaryCommand){
+            return true;
+        }
+        return false;
     }
 }

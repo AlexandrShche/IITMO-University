@@ -9,12 +9,24 @@ public class ClearCommand extends SimpleCommand implements Serializable {
 
     @Override
     public void execute(CollectionOfWorkersManager collectionOfWorkersManager) {
-        collectionOfWorkersManager.clear();
-        result = "Collection was cleared";
+        if(collectionOfWorkersManager.collectionIsEmpty()) {
+            result = "collection is empty";
+        } else {
+            collectionOfWorkersManager.clear();
+            result = "Collection was cleared";
+        }
     }
 
     @Override
     public String getResult() {
         return result;
+    }
+
+    @Override
+    public boolean equals(Object o){
+        if(o instanceof ClearCommand){
+            return true;
+        }
+        return false;
     }
 }

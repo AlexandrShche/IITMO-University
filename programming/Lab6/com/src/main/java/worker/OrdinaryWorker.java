@@ -25,6 +25,18 @@ public class OrdinaryWorker extends DefaultWorker implements Serializable {
 
     private static long lastId;
     public static SortedSet<Long> ids = new TreeSet<>();
+
+    public OrdinaryWorker(Worker worker) {
+        this.setName(worker.getName());
+        this.setSalary(worker.getSalary());
+        this.setCoordinates(worker.getCoordinates());
+        this.setPosition(worker.getPosition());
+        this.setStatus(worker.getStatus());
+        this.setCreationDate(worker.getCreationDate());
+        this.setEndDate(worker.getEndDate());
+        this.setOrganization(worker.getOrganization());
+    }
+
     public static long getNewId(){
         lastId++;
         ids.add(lastId);

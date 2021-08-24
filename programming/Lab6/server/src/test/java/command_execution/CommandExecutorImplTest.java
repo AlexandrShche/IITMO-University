@@ -27,7 +27,12 @@ class CommandExecutorImplTest {
                 listOfWorkers.add(new OrdinaryWorker());
                 listOfWorkers.add(new OrdinaryWorker());;
             }
-        };
+
+        @Override
+        public boolean collectionIsEmpty() {
+            return false;
+        }
+    };
 
     @Test
     void executeCommand() {

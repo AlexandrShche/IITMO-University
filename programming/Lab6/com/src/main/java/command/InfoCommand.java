@@ -15,4 +15,12 @@ public class InfoCommand extends SimpleCommand implements Serializable {
     public String getResult() {
         return result;
     }
+
+    @Override
+    public boolean equals(Object o){
+        if(o instanceof InfoCommand){
+            return true;
+        }
+        return false;
+    }
 }

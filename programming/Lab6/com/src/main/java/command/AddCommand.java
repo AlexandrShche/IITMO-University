@@ -17,4 +17,13 @@ public class AddCommand extends CommandWithWorkerArg implements Serializable{
     public String getResult() {
         return result;
     }
+
+    @Override
+    public boolean equals(Object object){
+        if(object instanceof AddCommand){
+            return ((AddCommand) object).getWorker().equals(worker);
+        } else {
+            return false;
+        }
+    }
 }
