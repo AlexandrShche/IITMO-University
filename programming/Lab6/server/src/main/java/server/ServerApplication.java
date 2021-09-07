@@ -1,10 +1,14 @@
 package server;
 import application.Application;
+import command.*;
+import command_execution.ScriptReaderImpl;
+import server_commands.ExecuteScriptCommand;
+import server_commands.ExitCommand;
+import server_commands.SaveCommand;
 import worker.CollectionOfWorkersManager;
 import collection.JSONFileWorkerReader;
 import collection.JSONFileWorkerWriter;
 import collection.ListOfWorkerManager;
-import command.Command;
 import command_execution.CommandExecutor;
 import command_execution.CommandExecutorImpl;
 import connection.*;
@@ -19,7 +23,9 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.channels.ClosedSelectorException;
 import java.nio.channels.Selector;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 public class ServerApplication implements Application{
     public static String dataFileName = System.getenv("DATA_FOR_LAB6");
@@ -32,12 +38,17 @@ public class ServerApplication implements Application{
                                                             new JSONFileWorkerWriter(dataFileName));
     private CommandExecutor commandExecutor = new CommandExecutorImpl(collectionOfWorkersManager);
     private ResponseSender responseSender = new ResponseSenderImpl();
-
+    private Map<String, Command> serverCommands;
 
     String address = "localhost";
     int port = 8888;
 
     public void start(){
+        try {
+            serverCommands = getServerCommand();
+        } catch (IOException ioe){
+            log.Logback.getLogger().error("problems with script command");
+        }
         consoleStart();
         log.Logback.getLogger().info("server was started");
         isRunning = true;
@@ -96,7 +107,6 @@ public class ServerApplication implements Application{
 
                 }
             } catch (IOException ioe){
-
                 ioe.printStackTrace();
                 try{
                     serverConnectionManager.stop();
@@ -115,20 +125,20 @@ public class ServerApplication implements Application{
             BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
             while(!Thread.interrupted()){
                 try{
-                    String str = reader.readLine().trim().toLowerCase(Locale.ROOT);
-                    if(str.equals("save")){
-                        collectionOfWorkersManager.save();
-                        log.Logback.getLogger().warn("Collection was saved");
-                    } else {
-                        if(str.equals("exit")){
-                            this.exit();
+                    String[] str = reader.readLine().trim().split("\\s+");
+                    Command command = serverCommands.get(str[0].toLowerCase(Locale.ROOT));
+                    if(command != null){
+                        if(command instanceof ExecuteScriptCommand){
+                            ((ExecuteScriptCommand) command).execute(collectionOfWorkersManager, str[1]);
+                        } else {
+                            command.execute(collectionOfWorkersManager);
                         }
-                        else {
-                        log.Logback.getLogger().warn("Incorrect server command has been input");
-                        System.out.println("чё?");}
+                    } else {
+                        log.Logback.getLogger().error("unknowing command");
                     }
                 } catch (IOException ioe){
                     log.Logback.getLogger().error("ioe");
+
                 }
             }
         });
@@ -141,5 +151,24 @@ public class ServerApplication implements Application{
         log.Logback.getLogger().warn("Collection was saved");
         serverConnectionManager.stop();
         isRunning = false;
+    }
+
+    private Map<String, Command> getServerCommand() throws IOException {
+        Map<String, Command> result = new HashMap<>();
+        result.put("save", new SaveCommand());
+        result.put("exit", new ExitCommand(this));
+        result.put("execute_script", new ExecuteScriptCommand(new ScriptReaderImpl(getScriptCommands())));
+        return result;
+    }
+
+    private Map<String, Command> getScriptCommands() {
+        Map<String, Command> result = new HashMap<>();
+        result.put("add", new AddCommand());
+        result.put("add_if_min", new AddIfMinCommand());
+        result.put("clear", new ClearCommand());
+        result.put("remove_by_id", new RemoveByIdCommand());
+        result.put("remove_head", new RemoveHeadCommand());
+        result.put("update", new UpdateCommand());
+        return result;
     }
 }

@@ -90,7 +90,6 @@ public class ClientApplication implements Application {
         commands.put("add_if_min", new AddIfMinCommand());
         commands.put("clear", new ClearCommand());
         commands.put("count_less_than_organization", new CountLessThanOrganizationCommand());
-        commands.put("execute_script", new ExecuteScriptCommand());
         commands.put("exit", new ExitCommand(this));
         commands.put("head", new HeadCommand());
         commands.put("help", new HelpCommand(clientWriter, bundle));

@@ -5,12 +5,29 @@ import worker.Worker;
 
 import java.io.Serializable;
 
-public abstract class CommandWithWorkerArg implements CommandWithArg, Serializable {
-    protected Worker worker;
+public abstract class CommandWithWorkerArg implements CommandWithArg, Serializable, Cloneable {
+    protected OrdinaryWorker worker;
     public void setArg(OrdinaryWorker worker) {
         this.worker = worker;
     }
     public OrdinaryWorker getWorker(){
-        return (OrdinaryWorker) worker;
+        return worker;
+    }
+
+    @Override
+    public String toString(){
+        return "commandWithWorkerArg" + worker.toFormalString();
+    }
+
+
+    @Override
+    public CommandWithWorkerArg clone() {
+        try {
+            CommandWithWorkerArg clone = (CommandWithWorkerArg) super.clone();
+            // TODO: copy mutable state here, so the clone can't change the internals of the original
+            return clone;
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError();
+        }
     }
 }

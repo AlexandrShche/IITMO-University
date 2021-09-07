@@ -24,4 +24,13 @@ public class AddIfMinCommand extends CommandWithWorkerArg implements Serializabl
     public String getResult() {
         return result;
     }
+
+    @Override
+    public boolean equals(Object object){
+        if(object instanceof AddIfMinCommand){
+            return ((AddIfMinCommand) object).getWorker().equals(worker);
+        } else {
+            return false;
+        }
+    }
 }

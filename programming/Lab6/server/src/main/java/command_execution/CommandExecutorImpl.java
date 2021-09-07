@@ -2,7 +2,7 @@ package command_execution;
 
 import worker.CollectionOfWorkersManager;
 import command.Command;
-import command.ExecuteScriptCommand;
+import server_commands.ExecuteScriptCommand;
 import exceptions.CommandExecuteException;
 
 import java.io.IOException;
@@ -19,8 +19,9 @@ public class CommandExecutorImpl implements CommandExecutor {
         try {
             if (command instanceof ExecuteScriptCommand) {
                 command.execute();
-            }
+            } else {
                 command.execute(collectionOfWorkersManager);
+            }
             log.Logback.getLogger().info(command.toString() + " was executed");
             String result = command.getResult();
 

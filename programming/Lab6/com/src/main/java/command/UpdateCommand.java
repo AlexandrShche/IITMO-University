@@ -6,12 +6,17 @@ import worker.Worker;
 
 import java.io.Serializable;
 
-public class UpdateCommand extends CommandWithWorkerArg implements SimpleCommandWithArg, Serializable {
+public class UpdateCommand extends CommandWithWorkerArg implements SimpleCommandWithArg, Serializable, Cloneable {
     long id;
     String result;
     @Override
     public void setSimpleArg(String s) {
         id = Long.parseLong(s);
+    }
+
+    @Override
+    public UpdateCommand clone() {
+        return (UpdateCommand)super.clone();
     }
 
     @Override
@@ -33,5 +38,13 @@ public class UpdateCommand extends CommandWithWorkerArg implements SimpleCommand
         return result;
     }
 
-
+    @Override
+    public boolean equals(Object o){
+        if(o instanceof UpdateCommand){
+            if(((UpdateCommand) o).id == id && ((UpdateCommand) o).getWorker().equals(worker)){
+                return true;
+            }
+        }
+        return false;
+    }
 }

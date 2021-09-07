@@ -1,0 +1,75 @@
+body {
+    background-color: whitesmoke;
+    text-align: center;
+}
+
+header {
+    font-size: 0.6em;
+    top: 0;
+}
+
+footer {
+    bottom: 0;
+}
+
+header, footer {
+    z-index: 10;
+    width: 100%;
+    position: fixed;
+    background-color: #515151;
+    color: blanchedalmond;
+    font-family: sans-serif;
+}
+
+#mainTable {
+    align-items: center;
+    margin: auto;
+    width: 50%;
+    margin-top: 90px;
+    position: relative;
+}
+
+input[type="text"] {
+    border-radius: 10px;
+    width: 225px;
+    text-align: center;
+}
+
+
+#checkButton {
+    box-shadow: #515151;
+    border-radius: 4px;
+    border: none;
+    background-color: #515151;
+    color:blanchedalmond;
+    width: 90px;
+    height: 30px;
+}
+
+#checkButton:hover {
+    box-shadow: 0 0 10px 1px black;
+}
+
+#outputContaner {
+    text-align: center;
+}
+
+#outputTable {
+    border: 1px solid #000720;
+    border-collapse: collapse;
+    margin: auto;
+    width: 90%;
+}
+
+#outputTable th {
+    background-color:#515151;
+    color: white;
+}
+
+#outputTable * {
+    padding: 25px;
+}
+
+.outputStub notification{
+    color: black;
+}

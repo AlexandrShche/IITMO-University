@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ru-RU">
+    <head>
+        <link rel="stylesheet" href="page.css">
+        <title> Лабораторная №1 </title>
+    </head>
+
+    <body>
+        <header>
+            <h1> Веб-программирование, Лабораторная работа №1. Вариант № 10213 </h1>
+            <h2>Щербаков Александр Р3210</h2>
+        </header>
+
+        <table id="mainTable">
+            <thead><td colspan="5"><h3>Введите значения:</h3></td></thead>
+            <tbody>
+            <tr> 
+                <td colspan="5"> <hr> </td> 
+            </tr>
+            <tr>
+                <td colspan="3"> Задайте Х: </td> 
+                <td rowspan="6" colspan="2"> <img src="areas.png"> </td> 
+            </tr>
+            <tr>
+                <td colspan="3" class="inputTextElement">
+                    <input required name="X-input"
+                    type="text"
+                    placeholder="значение в промежутке от -3 до 5" 
+                    maxlength="5"
+                    id="test">
+                </td>
+            </tr>
+            <tr> <td colspan="3"> Задайте Y: </td> </tr>
+            <tr> 
+                <td colspan="3" class="inputTextElement">
+                    <input required name="Y-input" 
+                    type="text" 
+                    placeholder="значение в промежутке от -3 до 5" 
+                    maxlength="5">
+                </td> 
+            </tr>
+            <tr>
+                <td colspan="2"> Выберите R: </td> 
+                <td colspan="1"> 
+                    <select required name="R-input"> 
+                        <option value="1"> 1 </option>
+                        <option value="2"> 2 </option>
+                        <option value="3"> 3 </option>
+                        <option value="4"> 4 </option>
+                        <option value="5"> 5 </option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <button id="checkButton"> Проверить </button>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="5"><hr></td>
+            </tr>
+             
+            </tbody>
+            <tfoot> 
+                <tr>
+                    <td colspan="5" id="outputContainer">
+                        <h4>
+                            <span class="outputStub notification">
+                                Результаты отсутствуют
+                            </span>
+                        </h4>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+
+        <br><br><br>
+        <br><br><br>
+        <br><br><br>
+        
+        <footer>
+            <h1> Университет ИТМО </h1>
+            <h4> Кафедра <font color=#BB3232> ВТ </font> </h4>
+            <h6> 2021 </h6>
+
+        </footer>
+    <script src="validator.js"> </script>
+    </body>
+</html>

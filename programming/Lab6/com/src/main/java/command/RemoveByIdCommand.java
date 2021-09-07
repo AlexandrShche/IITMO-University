@@ -5,7 +5,7 @@ import worker.CollectionOfWorkersManager;
 
 import java.io.Serializable;
 
-public class RemoveByIdCommand implements Serializable, SimpleCommandWithArg {
+public class RemoveByIdCommand implements Serializable, SimpleCommandWithArg, Cloneable {
     private long id;
     String result;
     @Override
@@ -35,6 +35,16 @@ public class RemoveByIdCommand implements Serializable, SimpleCommandWithArg {
     @Override
     public void setSimpleArg(String s) {
         id = Long.parseLong(s);
+    }
+
+    @Override
+    public SimpleCommandWithArg clone() {
+        try {
+            return (RemoveByIdCommand)super.clone();
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     public long getId(){

@@ -5,6 +5,7 @@ import exceptions.InvalidWorkerFieldException;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
+import java.util.Objects;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
@@ -35,6 +36,7 @@ public class OrdinaryWorker extends DefaultWorker implements Serializable {
         this.setCreationDate(worker.getCreationDate());
         this.setEndDate(worker.getEndDate());
         this.setOrganization(worker.getOrganization());
+        this.setId(Long.parseLong("-1"));
     }
 
     public static long getNewId(){
@@ -79,6 +81,8 @@ public class OrdinaryWorker extends DefaultWorker implements Serializable {
         this.position = constructWorker.getPosition();
         this.status = constructWorker.getStatus();
         this.organization = constructWorker.getOrganization();
+
+        this.setId(Long.parseLong("-1"));
     }
 
     public static void removeIdFromSet(Long id) {
@@ -169,5 +173,15 @@ public class OrdinaryWorker extends DefaultWorker implements Serializable {
         } else {
             return organization.toFormalString();
         }
+    }
+
+    @Override
+    public boolean equals(Object o){
+        if(o instanceof Worker){
+            if (name.equals(((Worker) o).getName())){
+                return salary.equals(((Worker) o).getSalary());
+            }
+        }
+        return false;
     }
 }
