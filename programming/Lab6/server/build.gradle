@@ -25,10 +25,6 @@ test {
     useJUnitPlatform()
 }
 
-jar{
-    baseName = 'client-gradle'
-    version =  '0.1.0'
-}
 //sourceCompatibility = JavaVersion.VERSION_16
 //targetCompatibility = JavaVersion.VERSION_16
 //sourceCompatibility = JavaVersion.VERSION_16
