@@ -13,14 +13,12 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class DBConnectionManagerImplTest {
 
-
     Properties config = new Properties();
     String url;
     String userName;
     String password;
 
     DBConnectionManagerImpl dbConnectionManager = new DBConnectionManagerImpl();
-
 
     @Test
     void connect() throws SQLException, ClassNotFoundException {
@@ -30,13 +28,13 @@ class DBConnectionManagerImplTest {
             e.printStackTrace();
         }
         try {
+            System.out.println("ку");
             dbConnectionManager.connect(url, userName, password);
             System.out.println("SUCCESSFUL connection");
         } catch (Exception e) {
             System.out.println("UNSUCCESSFUL connection");
 
             e.printStackTrace();
-
 
             ClassLoader cl = ClassLoader.getSystemClassLoader();
 
@@ -57,5 +55,9 @@ class DBConnectionManagerImplTest {
         url = config.getProperty("db.url");
         userName = config.getProperty("db.username");
         password = config.getProperty("db.password");
+    }
+
+    @Test
+    void testConnect() {
     }
 }

@@ -1,0 +1,59 @@
+package data;
+
+import auth.Auth;
+import exceptions.DBException;
+import worker.Worker;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.util.Collection;
+import java.util.Set;
+
+public class DBManager implements DataManager {
+    private final DataWriter dataWriter;
+    private final DataReader dataReader;
+
+    public DBManager(String url, String user, String password) throws SQLException {
+        Connection connection = DriverManager.getConnection(url, user, password);
+        this.dataReader = new DBReader(connection);
+        this.dataWriter = new DBWriter(connection);
+    }
+
+    @Override
+    public Collection<Worker> readCollection() throws DBException {
+        return dataReader.readElements();
+    }
+
+    @Override
+    public Worker addElement(Worker worker, Auth auth) throws DBException {
+        dataWriter.addElement(worker, auth);
+        return dataReader.getLastElement();
+    }
+
+    @Override
+    public Worker updateElement(Worker worker, long id, Auth auth) throws DBException {
+        dataWriter.updateElement(worker, id, auth);
+        return dataReader.getElement(id);
+    }
+
+    @Override
+    public void clearElements(Auth auth) {
+        dataWriter.clearElements(auth);
+    }
+
+    @Override
+    public void removeElement(long id, Auth auth) {
+        dataWriter.removeElement(id, auth);
+    }
+
+    @Override
+    public void addUser(Auth auth) {
+        dataWriter.addUser(auth);
+    }
+
+    @Override
+    public Set<Auth> readUsers() throws DBException {
+        return dataReader.readUsers();
+    }
+}

@@ -10,7 +10,7 @@ import java.util.Objects;
  * абстрактный класс, реализующий интерфейс работяга
  * дефолтный работяга
  */
-public abstract class DefaultWorker implements Worker, Serializable {
+public abstract class  DefaultWorker implements Worker, Serializable {
     protected Long id;
     protected String name;
     protected OrdinaryCoordinates coordinates;
