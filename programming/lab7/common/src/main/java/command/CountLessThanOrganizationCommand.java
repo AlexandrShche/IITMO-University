@@ -1,5 +1,6 @@
 package command;
 
+import user.Auth;
 import worker.CollectionOfWorkersManager;
 
 import java.io.Serializable;
@@ -7,7 +8,7 @@ import java.io.Serializable;
 public class CountLessThanOrganizationCommand extends CommandWithOrganizationArg implements Serializable {
     String result;
     @Override
-    public void execute(CollectionOfWorkersManager collectionOfWorkersManager) {
+    public void execute(CollectionOfWorkersManager collectionOfWorkersManager, Auth auth) {
         if(organization == null){
             result = "как сравнивать с null? Я не знаю";
         } else {

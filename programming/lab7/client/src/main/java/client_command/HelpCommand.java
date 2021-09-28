@@ -2,6 +2,7 @@ package client_command;
 
 import command.Command;
 import io.ClientWriter;
+import user.Auth;
 import worker.CollectionOfWorkersManager;
 
 import java.util.ResourceBundle;
@@ -27,7 +28,7 @@ public class HelpCommand implements Command {
      * передаётся только потому что один ленивый студент не захотел под конец выполнения лабы менять архитектуру наследования команд
      */
     @Override
-    public void execute(CollectionOfWorkersManager collectionOfWorkersManager) {
+    public void execute(CollectionOfWorkersManager collectionOfWorkersManager, Auth auth) {
         clientWriter.write(bundle.getString("help_message"));
     }
 

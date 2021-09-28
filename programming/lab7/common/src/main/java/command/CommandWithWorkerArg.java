@@ -1,5 +1,7 @@
 package command;
 
+import user.Auth;
+import worker.CollectionOfWorkersManager;
 import worker.OrdinaryWorker;
 import worker.Worker;
 
@@ -7,6 +9,7 @@ import java.io.Serializable;
 
 public abstract class CommandWithWorkerArg implements CommandWithArg, Serializable, Cloneable {
     protected OrdinaryWorker worker;
+    protected boolean success;
     public void setArg(OrdinaryWorker worker) {
         this.worker = worker;
     }
@@ -29,4 +32,5 @@ public abstract class CommandWithWorkerArg implements CommandWithArg, Serializab
             throw new AssertionError();
         }
     }
+
 }

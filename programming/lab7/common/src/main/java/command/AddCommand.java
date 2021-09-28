@@ -1,5 +1,6 @@
 package command;
 
+import user.Auth;
 import worker.CollectionOfWorkersManager;
 import worker.Worker;
 
@@ -8,8 +9,9 @@ import java.io.Serializable;
 public class AddCommand extends CommandWithWorkerArg implements Serializable{
     private String result;
 
-    public void execute(CollectionOfWorkersManager collectionOfWorkersManager) {
-        collectionOfWorkersManager.addWorker(worker);
+    @Override
+    public void execute(CollectionOfWorkersManager collectionOfWorkersManager, Auth auth) {
+        collectionOfWorkersManager.addWorker(worker, auth);
         result = "worker was added";
     }
 

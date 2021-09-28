@@ -1,19 +1,21 @@
 package command;
 
 import exceptions.NotTheSmallestException;
+import user.Auth;
 import worker.CollectionOfWorkersManager;
 import java.io.Serializable;
 
 public class AddIfMinCommand extends CommandWithWorkerArg implements Serializable {
-    String result;
+    private String result;
+
 
     @Override
-    public void execute(CollectionOfWorkersManager collectionOfWorkersManager) {
+    public void execute(CollectionOfWorkersManager collectionOfWorkersManager, Auth auth) {
         if(collectionOfWorkersManager.collectionIsEmpty()){
-            collectionOfWorkersManager.addWorker(worker);
+            collectionOfWorkersManager.addWorker(worker, auth);
         } else {
             try {
-                collectionOfWorkersManager.addIfMin(worker);
+                collectionOfWorkersManager.addIfMin(worker, auth);
                 result = "worker was added";
             } catch (NotTheSmallestException ntse) {
                 result = "Not the smallest";

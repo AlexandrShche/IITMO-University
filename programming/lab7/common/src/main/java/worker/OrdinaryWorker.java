@@ -53,7 +53,7 @@ public class OrdinaryWorker extends DefaultWorker implements Serializable {
          this.creationDate = LocalDateTime.now();
          this.name = "default";
          this.coordinates = new OrdinaryCoordinates();
-         this.salary = 0.0;
+         this.salary = 1.0;
          this.position = Position.MANAGER;
          this.status = Status.FIRED;
          this.endDate = null;

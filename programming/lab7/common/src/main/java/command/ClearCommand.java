@@ -1,5 +1,6 @@
 package command;
 
+import user.Auth;
 import worker.CollectionOfWorkersManager;
 
 import java.io.Serializable;
@@ -8,11 +9,11 @@ public class ClearCommand extends SimpleCommand implements Serializable {
     String result;
 
     @Override
-    public void execute(CollectionOfWorkersManager collectionOfWorkersManager) {
+    public void execute(CollectionOfWorkersManager collectionOfWorkersManager, Auth auth) {
         if(collectionOfWorkersManager.collectionIsEmpty()) {
             result = "collection is empty";
         } else {
-            collectionOfWorkersManager.clear();
+            collectionOfWorkersManager.clear(auth);
             result = "Collection was cleared";
         }
     }

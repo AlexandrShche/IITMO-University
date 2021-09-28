@@ -2,6 +2,7 @@ package server_commands;
 
 import application.Application;
 import command.Command;
+import user.Auth;
 import worker.CollectionOfWorkersManager;
 
 import java.io.IOException;
@@ -17,7 +18,7 @@ public class ExitCommand implements Command {
     }
 
     @Override
-    public void execute(CollectionOfWorkersManager collectionOfWorkersManager) throws IOException {
+    public void execute(CollectionOfWorkersManager collectionOfWorkersManager, Auth auth) throws IOException {
         application.exit();
     }
 

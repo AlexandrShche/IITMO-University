@@ -11,7 +11,6 @@ public class DBConnectionManagerImpl {
     }
 
     public Connection connect(String url, String userName, String password) throws SQLException, ClassNotFoundException {
-
         DriverManager.registerDriver(new Driver());
         Class.forName("org.postgresql.Driver");
         Connection connection = DriverManager.getConnection(url, userName, password);

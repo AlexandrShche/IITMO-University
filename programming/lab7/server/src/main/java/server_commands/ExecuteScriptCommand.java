@@ -2,6 +2,7 @@ package server_commands;
 
 import command.Command;
 import command_execution.ScriptReader;
+import user.Auth;
 import worker.CollectionOfWorkersManager;
 
 import java.io.IOException;
@@ -32,12 +33,12 @@ public class ExecuteScriptCommand implements Serializable, Cloneable, Command {
         try {
             List<Command> commandList = scriptReader.getScript(scriptFileName);
             for(int i = 0; i<commandList.size(); i++) {
-                commandList.get(i).execute(collectionOfWorkersManager);
+                commandList.get(i).execute(collectionOfWorkersManager, new Auth("script", "jepriufhewpua4grw"));
             }
             result = "script was executed";
             log.Logback.getLogger().info(result);
         } catch (Exception e) {
-            collectionOfWorkersManager.recover();
+
             result = "collection was recovered";
             log.Logback.getLogger().error(result);
             if(e.getMessage() != null) {
@@ -49,8 +50,9 @@ public class ExecuteScriptCommand implements Serializable, Cloneable, Command {
         }
     }
 
+
     @Override
-    public void execute(CollectionOfWorkersManager collectionOfWorkersManager) throws IOException {
+    public void execute(CollectionOfWorkersManager collectionOfWorkersManager, Auth auth) throws IOException {
 
     }
 

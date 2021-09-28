@@ -16,6 +16,7 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeParseException;
 import java.util.Date;
+import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
 
@@ -41,15 +42,18 @@ public class ConsoleCommandReader implements CommandReader {
             System.err.println("Ну зачем Ctrl-D? :(");
             throw new NullPointerException();
         }
-        input = inputString.trim().toLowerCase().split("\\s+");
-        command = commands.get(input[0]);
+        input = inputString.trim().split("\\s+");
+        command = commands.get(input[0].toLowerCase(Locale.ROOT));
         if (command == null) {
             throw new UnknownCommandException();
         }
         if(command instanceof SimpleCommandWithArg){
             try {
-                if (input[1] != null) {
+                if (input[1] != null && input[2] == null) {
                     ((SimpleCommandWithArg) command).setSimpleArg(input[1]);
+                }
+                if (input[2] != null){
+                    ((SimpleCommandWithArg) command).setSimpleArg(input[1] + " " + input[2]);
                 }
             } catch (IndexOutOfBoundsException iobe){
                 throw new UnknownCommandException();

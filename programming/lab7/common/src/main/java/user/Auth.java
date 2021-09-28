@@ -1,7 +1,8 @@
-package auth;
+package user;
 
 import java.io.Serializable;
 import java.util.Objects;
+import hash.SHA224Generator;
 
 public class Auth implements Serializable {
     private static final long serialVersionUID = -8611546037459030544L;
@@ -10,6 +11,7 @@ public class Auth implements Serializable {
 
     public Auth(String login, String password) {
         this.login = login;
+      //  this.password = SHA224Generator.getHash(password);
         this.password = password;
     }
 
@@ -20,6 +22,8 @@ public class Auth implements Serializable {
             throw new IllegalArgumentException();
         return new Auth(loginPassword[0], loginPassword[1]);
     }
+
+
 
     public String getLogin() {
         return login;

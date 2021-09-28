@@ -29,8 +29,7 @@ public abstract class  DefaultWorker implements Worker, Serializable {
     public boolean equals(Worker worker){
         if(worker == null) return false;
         if(this == worker) return true;
-        return this.name.equals(worker.getName()) &&
-                this.coordinates.equals(worker.getCoordinates());
+        return this.name.equals(worker.getName());
     }
 
     @Override

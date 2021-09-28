@@ -1,6 +1,7 @@
 package command;
 
 import exceptions.NoSuchWorkerException;
+import user.Auth;
 import worker.CollectionOfWorkersManager;
 
 import java.io.Serializable;
@@ -14,12 +15,12 @@ public class RemoveByIdCommand implements Serializable, SimpleCommandWithArg, Cl
     }
 
     @Override
-    public void execute(CollectionOfWorkersManager collectionOfWorkersManager) {
+    public void execute(CollectionOfWorkersManager collectionOfWorkersManager, Auth auth) {
         if(collectionOfWorkersManager.collectionIsEmpty()) {
             result = "collection is empty";
         } else {
             try {
-                collectionOfWorkersManager.removeById(id);
+                collectionOfWorkersManager.removeById(id, auth);
                 result = "the item was deleted";
             } catch (NoSuchWorkerException nswe){
                 result = "Worker was not found";

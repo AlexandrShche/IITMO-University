@@ -12,6 +12,8 @@ import io.CommandReader;
 import io.ConsoleCommandReader;
 import io.ClientWriter;
 import io.ConsoleWriter;
+import user.Auth;
+
 import java.io.IOException;
 import java.nio.channels.SocketChannel;
 import java.util.HashMap;
@@ -23,15 +25,17 @@ public class ClientApplication implements Application {
     private boolean isRunning;
     private final String address;
     private final int port;
-    Command command;
-    ResourceBundle bundle = ResourceBundle.getBundle("messages", Locale.forLanguageTag("ru-RU"));
-    ClientWriter clientWriter = new ConsoleWriter();
-    Map<String, Command> commands = getCommands();
-    CommandReader consoleReader = new ConsoleCommandReader(clientWriter, commands, bundle);
-    ConnectionManager connectionManager = new ConnectionManagerImpl();
-    RequestWriter requestWriter = new OrdinaryRequestWriter();
-    RequestSender requestSender = new OrdinaryRequestSender();
-    ResponseReader responseReader = new ResponseReaderIml();
+    private Command command;
+    private final ResourceBundle bundle = ResourceBundle.getBundle("messages", Locale.forLanguageTag("ru-RU"));
+    private final ClientWriter clientWriter = new ConsoleWriter();
+    private final Map<String, Command> commands = getCommands();
+    private final CommandReader consoleReader = new ConsoleCommandReader(clientWriter, commands, bundle);
+    private final ConnectionManager connectionManager = new ConnectionManagerImpl();
+    private final RequestWriter requestWriter = new OrdinaryRequestWriter();
+    private final RequestSender requestSender = new OrdinaryRequestSender();
+    private final ResponseReader responseReader = new ResponseReaderIml();
+    private boolean isLogin;
+    private Auth auth;
 
     public ClientApplication(String address, int port) {
         this.address = address;
@@ -41,7 +45,15 @@ public class ClientApplication implements Application {
     @Override
     public void start(){
         isRunning = true;
+        isLogin = false;
         clientWriter.write(bundle.getString("welcome"));
+        while(!isLogin) {
+            try {
+                logIn();
+            } catch (Exception e){
+                clientWriter.write("что-то пошло не так");
+            }
+        }
         while(isRunning){
             try {
                 working();
@@ -53,6 +65,37 @@ public class ClientApplication implements Application {
                 System.out.println("Problems with deserialization");
                 e.printStackTrace();
             }
+        }
+    }
+
+    private void logIn() throws ClassNotFoundException, IOException {
+        command = consoleReader.readCommand();
+        if(command instanceof UsersCommand){
+            Response response = authorizeRequest((UsersCommand) command);
+            assert response != null;
+            clientWriter.write(response.getMessage());
+            if (response.getSuccess()) {
+                isLogin = true;
+                auth = new Auth(((UsersCommand) command).getLogin(), ((UsersCommand) command).getPassword());
+            }
+        } else {
+            clientWriter.write("Да не так");
+        }
+    }
+
+    private Response authorizeRequest(UsersCommand userCommand) {
+        try {
+            SocketChannel socketChannel = connectionManager.openConnection(address, port);
+            Auth auth = new Auth("auth request", "request");
+            Request request = requestWriter.writeRequest(command, auth);
+            requestSender.initOutputStream(socketChannel);
+            requestSender.sendRequest(request, socketChannel);
+            Response response = responseReader.getResponse(socketChannel);
+            socketChannel.close();
+            return response;
+        } catch (IOException | ClassNotFoundException ioe){
+            System.err.println(bundle.getString("problems_with_connection_message"));
+            return null;
         }
     }
 
@@ -68,7 +111,7 @@ public class ClientApplication implements Application {
     private void communicateWithServer(Command command) throws ClassNotFoundException {
         try {
             SocketChannel socketChannel = connectionManager.openConnection(address, port);
-            Request request = requestWriter.writeRequest(command);
+            Request request = requestWriter.writeRequest(command, auth);
             requestSender.initOutputStream(socketChannel);
             requestSender.sendRequest(request, socketChannel);
             Response response = responseReader.getResponse(socketChannel);
@@ -100,6 +143,8 @@ public class ClientApplication implements Application {
         commands.put("remove_head", new RemoveHeadCommand());
         commands.put("show", new ShowCommand());
         commands.put("update", new UpdateCommand());
+        commands.put("registration", new RegistrationCommand());
+        commands.put("authorization", new AuthorizationCommand());
         return commands;
     }
 }

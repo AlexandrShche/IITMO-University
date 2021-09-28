@@ -1,6 +1,6 @@
 package data;
 
-import auth.Auth;
+import user.Auth;
 import exceptions.DBException;
 import worker.Worker;
 

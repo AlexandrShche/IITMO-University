@@ -1,9 +1,8 @@
 package data;
 
-import auth.Auth;
+import user.Auth;
 import exceptions.DBException;
 import exceptions.InvalidWorkerFieldException;
-import org.slf4j.Logger;
 import worker.*;
 
 import java.sql.Connection;
@@ -11,30 +10,27 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.ZonedDateTime;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 
 public class DBReader implements DataReader {
     private final Connection connection;
-    
+
     public DBReader(Connection connection) {
         this.connection = connection;
     }
 
     @Override
     public Collection<Worker> readElements() throws DBException {
-        Collection<Worker> persons = new TreeSet<>();
+        Collection<Worker> workers = new LinkedList<>();
         try (Statement stmt = connection.createStatement()) {
-            ResultSet rs = stmt.executeQuery("select * from persons");
+            ResultSet rs = stmt.executeQuery("select * from  workers");
             while(rs.next()){
-                persons.add(createPerson(rs));
+                workers.add(createWorker(rs));
             }
         } catch (SQLException e) {
             throw new DBException(e);
         }
-        return persons;
+        return workers;
     }
 
     @Override
@@ -43,7 +39,7 @@ public class DBReader implements DataReader {
         try (Statement stmt = connection.createStatement()) {
             ResultSet rs = stmt.executeQuery("select * from users");
             while(rs.next()){
-                users.add(new Auth(rs.getString("username"), rs.getString("password")));
+                users.add(new Auth(rs.getString("login"), rs.getString("password")));
             }
             return users;
         } catch (SQLException e) {
@@ -56,7 +52,7 @@ public class DBReader implements DataReader {
         try (Statement stmt = connection.createStatement()){
             ResultSet rs = stmt.executeQuery("select * from workers where id = " + id);
             if (rs.next()) {
-                return createPerson(rs);
+                return createWorker(rs);
             } else {
                 throw new InvalidWorkerFieldException("id");
             }
@@ -69,9 +65,9 @@ public class DBReader implements DataReader {
     @Override
     public Worker getLastElement() throws DBException {
         try (Statement stmt = connection.createStatement()){
-            ResultSet rs = stmt.executeQuery("select * from workers where id = (select max(id) from persons)");
+            ResultSet rs = stmt.executeQuery("select * from workers where id = (select max(id) from workers)");
             if (rs.next()) {
-                return createPerson(rs);
+                return createWorker(rs);
             } else {
                 return null;
             }
@@ -80,7 +76,7 @@ public class DBReader implements DataReader {
         }
     }
 
-    private Worker createPerson(ResultSet rs) throws SQLException {
+    private Worker createWorker(ResultSet rs) throws SQLException, DBException {
         Worker worker = new OrdinaryWorker();
         worker.setName(rs.getString("name"));
         Coordinates coordinates = new
@@ -90,14 +86,50 @@ public class DBReader implements DataReader {
         worker.setPosition(Position.valueOf(rs.getString("position")));
         worker.setStatus(Status.valueOf(rs.getString("status")));
         worker.setCreationDate(rs.getDate("creation_date").toLocalDate().atStartOfDay());
-        worker.setEndDate(ZonedDateTime.from(rs.getDate("end_date").toLocalDate()));
+
+        if(rs.getDate("end_date") != null) {
+            worker.setEndDate(ZonedDateTime.from(rs.getDate("end_date").toLocalDate()));
+        } else {
+            worker.setEndDate(null);
+        }
+
         worker.setId(rs.getLong("id"));
 
-        Organization organization = new OrdinaryOrganization();
-        organization.setFullName(rs.getString("organization_name"));
+        if(rs.getString("organization_name") != null) {
+            Organization organization = new OrdinaryOrganization();
+            String full_name = rs.getString("organization_name");
 
-        worker.setOrganization(organization);
+            Set<Organization> organizations = getOrganizations();
+            for (Organization o: organizations) {
+                if (Objects.equals(o.getFullName(), full_name)){
+                    organization = o;
+                }
+            }
+            worker.setOrganization(organization);
 
+        } else {
+            worker.setOrganization(null);
+        }
         return  worker;
+    }
+
+    public Set<Organization> getOrganizations() throws DBException {
+        Set<Organization> organizations = new HashSet<>();
+        try (Statement stmt = connection.createStatement()) {
+            ResultSet rs = stmt.executeQuery("select * from organizations");
+            while(rs.next()){
+                organizations.add(createOrganization(rs));
+            }
+            return organizations;
+        } catch (SQLException e) {
+            throw new DBException(e);
+        }
+    }
+
+    private Organization createOrganization(ResultSet rs) throws SQLException {
+        Organization result = new OrdinaryOrganization();
+        result.setFullName(rs.getString("full_name"));
+        result.setAnnualTurnover(rs.getInt("annual_turnover"));
+        return result;
     }
 }

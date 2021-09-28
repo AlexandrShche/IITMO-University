@@ -1,24 +1,27 @@
 package server;
+
 import application.Application;
+import auth.AuthManager;
+import auth.AuthManagerImpl;
 import command.*;
-import command_execution.ScriptReaderImpl;
-import server_commands.ExecuteScriptCommand;
-import server_commands.ExitCommand;
-import server_commands.SaveCommand;
-import worker.CollectionOfWorkersManager;
-import collection.JSONFileWorkerReader;
-import collection.JSONFileWorkerWriter;
-import collection.ListOfWorkerManager;
 import command_execution.CommandExecutor;
 import command_execution.CommandExecutorImpl;
+import command_execution.ScriptReaderImpl;
 import connection.*;
+import data.DBManager;
+import data.DataManager;
 import exceptions.CommandExecuteException;
 import exceptions.CommandExecutionException;
-import exceptions.IncorrectFileSettings;
 import network.Request;
 import network.Response;
+import server_commands.ExecuteScriptCommand;
+import server_commands.ExitCommand;
+import user.Auth;
+import worker.CollectionOfWorkersManager;
+import data.ListOfWorkerManager;
 
 import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.channels.ClosedSelectorException;
@@ -26,18 +29,18 @@ import java.nio.channels.Selector;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Properties;
 
 public class ServerApplication implements Application{
-    public static String dataFileName = System.getenv("DATA_FOR_LAB6");
     boolean isRunning;
-    private RequestReader requestReader = new RequestReaderImpl();
-    private ResponseWriter responseWriter = new ResponseWriterImpl();
-    private ServerConnectionManager serverConnectionManager = new ServerConnectionManagerImpl();
-    private CollectionOfWorkersManager collectionOfWorkersManager = new
-                                        ListOfWorkerManager(new JSONFileWorkerReader(dataFileName),
-                                                            new JSONFileWorkerWriter(dataFileName));
-    private CommandExecutor commandExecutor = new CommandExecutorImpl(collectionOfWorkersManager);
-    private ResponseSender responseSender = new ResponseSenderImpl();
+    private final RequestReader requestReader = new RequestReaderImpl();
+    private final ResponseWriter responseWriter = new ResponseWriterImpl();
+    private final ServerConnectionManager serverConnectionManager = new ServerConnectionManagerImpl();
+    private final AuthManager authManager = new AuthManagerImpl();
+    private DataManager dataManager;
+    private CollectionOfWorkersManager collectionOfWorkersManager;
+    private CommandExecutor commandExecutor;
+    private final ResponseSender responseSender = new ResponseSenderImpl();
     private Map<String, Command> serverCommands;
 
     String address = "localhost";
@@ -53,17 +56,25 @@ public class ServerApplication implements Application{
         log.Logback.getLogger().info("server was started");
         isRunning = true;
         Command command;
-        if(dataFileName == null){
-            throw new IncorrectFileSettings();
-        }
-        try{
-            collectionOfWorkersManager.parseDataToCollection();
-            log.Logback.getLogger().info("data was parsed");
-        } catch (Exception e){
 
-            log.Logback.getLogger().error("Problems with data file");
+        try{
+            FileInputStream fis = new FileInputStream("/home/alexander/HomeWorks/programming/lab7/server/src/main/resources/config.properties");
+            Properties properties = new Properties();
+            properties.load(fis);
+            String url = (String) properties.get ("db.url");
+            String username = (String) properties.get ("db.username");
+            String password = (String) properties.get ("db.password");
+
+            dataManager = new DBManager(url, username, password);
+            authManager.setUsers(dataManager.readUsers());
+            collectionOfWorkersManager = new ListOfWorkerManager(dataManager);
+            commandExecutor = new CommandExecutorImpl(collectionOfWorkersManager, authManager);
+            log.Logback.getLogger().info("data was parsed");
+        } catch (Throwable e){
+            log.Logback.getLogger().error("Problems with DB");
             e.printStackTrace();
         }
+
         Selector selector;
         while(isRunning){
             try {
@@ -77,19 +88,33 @@ public class ServerApplication implements Application{
                 }
                 try {
                     Request request = requestReader.readRequest(selector);
-                    log.Logback.getLogger().info("Request was received");
+                    String user;
+                    if(request.getAuth() != null) {
+                        user = request.getAuth().getLogin();
+                    } else {
+                        user = "null user";
+                    }
+                    log.Logback.getLogger().info("Request was received from " + user);
+
+
                     command = request.getCommand();
                     log.Logback.getLogger().info("Command was decrypted");
+                    System.out.println(command.toString());
                     String result;
                     try {
-                        result = commandExecutor.executeCommand(command);
+                        result = commandExecutor.executeCommand(command, request.getAuth());
                     } catch (Exception e){
                         e.printStackTrace();
                         log.Logback.getLogger().error("Error with command execution");
                         result = "error :(";
                     }
                     log.Logback.getLogger().info("Command was executed");
-                    Response response = responseWriter.writeResponse(result);
+                    Response response;
+                    if(command instanceof UsersCommand){
+                        response = responseWriter.writeResponse(result, ((UsersCommand) command).isSuccess());
+                    } else {
+                        response = responseWriter.writeResponse(result);
+                    }
                     log.Logback.getLogger().info("Response was wrote");
                     responseSender.sendResponse(response, selector);
                     log.Logback.getLogger().info("Response was sent");
@@ -103,8 +128,6 @@ public class ServerApplication implements Application{
                     log.Logback.getLogger().info("Response was sent");
                     serverConnectionManager.stop();
                     log.Logback.getLogger().info("Client was served");
-                } finally {
-
                 }
             } catch (IOException ioe){
                 ioe.printStackTrace();
@@ -131,7 +154,8 @@ public class ServerApplication implements Application{
                         if(command instanceof ExecuteScriptCommand){
                             ((ExecuteScriptCommand) command).execute(collectionOfWorkersManager, str[1]);
                         } else {
-                            command.execute(collectionOfWorkersManager);
+                            Auth auth = new Auth("server", "Fk4Dl3igjeriehioefjlajie" );
+                            command.execute(collectionOfWorkersManager, null);
                         }
                     } else {
                         log.Logback.getLogger().error("unknowing command");
@@ -147,7 +171,6 @@ public class ServerApplication implements Application{
     }
 
     public void exit() throws IOException {
-        collectionOfWorkersManager.save();
         log.Logback.getLogger().warn("Collection was saved");
         serverConnectionManager.stop();
         isRunning = false;
@@ -155,7 +178,6 @@ public class ServerApplication implements Application{
 
     private Map<String, Command> getServerCommand() throws IOException {
         Map<String, Command> result = new HashMap<>();
-        result.put("save", new SaveCommand());
         result.put("exit", new ExitCommand(this));
         result.put("execute_script", new ExecuteScriptCommand(new ScriptReaderImpl(getScriptCommands())));
         return result;
