@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div>
+    <a href="https://www.google.com/" id="id"> ГИПЕРССЫЛКА</a>
+        <p>
+            Привет, Андрей! <br>
+            Ну где ты был? Ну обними меня скорей
+        </p>
+
+        <a href="https://www.google.com/"> ГИПЕРССЫЛКА </a>
+    </div>
+</body>
+</html>
+
+
+<style>
+    body #id{
+        color: red;
+    }
+
+    /*a#id{*/
+    /*    display: none;*/
+    /*    opacity: 0;*/
+    /*}*/
+
+
+    a:hover {
+        opacity: 0;
+    }
+</style>
+
+
+<script>
+    let a = document.querySelectorAll("a");
+    a.forEach(function (item){
+        item.remove();
+    })
+</script>
