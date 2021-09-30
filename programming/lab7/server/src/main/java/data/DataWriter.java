@@ -13,5 +13,5 @@ public interface DataWriter {
 
     void removeElement(long id, Auth auth);
 
-    void addUser(Auth auth);
+    void addUser(Auth auth) throws DBException;
 }

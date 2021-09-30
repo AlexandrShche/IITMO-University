@@ -5,6 +5,7 @@ import command.AuthorizationCommand;
 import command.RegistrationCommand;
 import command.UsersCommand;
 import data.DataManager;
+import exceptions.DBException;
 import user.Auth;
 import worker.CollectionOfWorkersManager;
 import command.Command;
@@ -16,10 +17,12 @@ import java.io.IOException;
 public class CommandExecutorImpl implements CommandExecutor {
     private final CollectionOfWorkersManager collectionOfWorkersManager;
     private final AuthManager authManager;
+    private final DataManager dataManager;
 
-    public CommandExecutorImpl(CollectionOfWorkersManager collectionOfWorkersManager, AuthManager authManager) {
+    public CommandExecutorImpl(CollectionOfWorkersManager collectionOfWorkersManager, AuthManager authManager, DataManager dataManager) {
         this.collectionOfWorkersManager = collectionOfWorkersManager;
         this.authManager = authManager;
+        this.dataManager = dataManager;
     }
 
     @Override
@@ -32,6 +35,7 @@ public class CommandExecutorImpl implements CommandExecutor {
             if (command instanceof UsersCommand){
                 String login = ((UsersCommand) command).getLogin();
                 String password = ((UsersCommand) command).getPassword();
+                System.out.println(login+password);
                 Auth newAuth = new Auth(login, password);
                 if(command instanceof AuthorizationCommand){
                     if(authManager.checkAuth(newAuth)){
@@ -47,6 +51,7 @@ public class CommandExecutorImpl implements CommandExecutor {
                         result = "Вы уже зарегистрированы";
                     } else {
                         authManager.addUser(newAuth);
+                        dataManager.addUser(newAuth);
                         result = "Успешная регистрация! Осталось лишь войти)";
                     }
                 }
@@ -60,7 +65,8 @@ public class CommandExecutorImpl implements CommandExecutor {
             }
             log.Logback.getLogger().info("result: " + result);
             return result;
-        } catch (CommandExecuteException | IOException cee){
+        } catch (CommandExecuteException | IOException | DBException cee){
+            log.Logback.getLogger().error(cee.getMessage());
             return "не получилось, не фартануло";
         }
     }

@@ -14,26 +14,21 @@ import java.util.Set;
 public class ResponseSenderImpl implements ResponseSender {
     Selector selector;
 
-    public void sendResponse(Response response, Selector selector) throws IOException, ClassNotFoundException{
-        this.selector = selector;
-        sendBytes(serializeResponse(response));
+    public void sendResponse(SocketChannel socketChannel, Response response) throws IOException {
+        sendBytes(serializeResponse(response), socketChannel);
     }
 
-    private void sendBytes(byte[] bytes) throws IOException {
-        ByteBuffer buf = ByteBuffer.wrap(bytes);
-        SocketChannel channel = null;
-        while (channel == null) {
-            selector.select();
-            Set<SelectionKey> keys = selector.selectedKeys();
-            Iterator<SelectionKey> iterator = keys.iterator();
-            while(iterator.hasNext()) {
-                SelectionKey key = iterator.next();
-                if (key.isWritable()) {
-                    channel = (SocketChannel)key.channel();
-                    channel.write(buf);
-                }
-                iterator.remove();
+    private void sendBytes(byte[] bytes, SocketChannel socketChannel) throws IOException {
+        ByteBuffer byteBuffer = ByteBuffer.wrap(bytes);
+        int numWritten = 1;
+        try {
+            while (byteBuffer.remaining() > 0) {
+                numWritten = socketChannel.write(byteBuffer);
             }
+        } catch (IOException e) {
+            log.Logback.getLogger().error("IOException");
+            log.Logback.getLogger().error("error with sending response");
+            socketChannel.close();
         }
     }
 
@@ -41,6 +36,7 @@ public class ResponseSenderImpl implements ResponseSender {
         ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
         ObjectOutputStream stream = new ObjectOutputStream(byteStream);
         stream.writeObject(response);
+        stream.flush();
         return byteStream.toByteArray();
     }
 }

@@ -1,5 +1,7 @@
 package connection;
 
+import command.UsersCommand;
+import jdk.nashorn.api.scripting.ScriptObjectMirror;
 import network.Request;
 
 import java.io.ByteArrayOutputStream;
@@ -21,5 +23,11 @@ public class OrdinaryRequestSender implements RequestSender {
         objectOutputStream.writeObject(request);
         this.stream.write(byteStream.toByteArray());
         this.stream.flush();
+
+        if(request.getCommand() instanceof UsersCommand){
+            System.out.println(((UsersCommand) request.getCommand()).getLogin());
+        }
+
+        System.out.println(request);
     }
 }

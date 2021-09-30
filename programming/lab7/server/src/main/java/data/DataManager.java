@@ -17,7 +17,7 @@ public interface DataManager {
 
     void removeElement(long id, Auth auth);
 
-    void addUser(Auth auth);
+    void addUser(Auth auth) throws DBException;
 
     Set<Auth> readUsers() throws DBException;
 }

@@ -48,7 +48,7 @@ public class DBManager implements DataManager {
     }
 
     @Override
-    public void addUser(Auth auth) {
+    public void addUser(Auth auth) throws DBException {
         dataWriter.addUser(auth);
     }
 

@@ -68,7 +68,30 @@ public class ClientApplication implements Application {
         }
     }
 
-    private void logIn() throws ClassNotFoundException, IOException {
+    private void working() throws IOException, ClassNotFoundException {
+        command = consoleReader.readCommand();
+        if(command instanceof ExitCommand || command instanceof HelpCommand){
+            command.execute();
+        } else {
+            communicateWithServer(command);
+        }
+    }
+
+    private void communicateWithServer(Command command) throws ClassNotFoundException {
+        try {
+            SocketChannel socketChannel = connectionManager.openConnection(address, port);
+            Request request = requestWriter.writeRequest(command, auth);
+            requestSender.initOutputStream(socketChannel);
+            requestSender.sendRequest(request, socketChannel);
+            Response response = responseReader.getResponse(socketChannel);
+            clientWriter.write(response.getMessage());
+            socketChannel.close();
+        } catch (IOException ioe){
+            System.err.println(bundle.getString("problems_with_connection_message"));
+        }
+    }
+
+    private void logIn() throws IOException {
         command = consoleReader.readCommand();
         if(command instanceof UsersCommand){
             Response response = authorizeRequest((UsersCommand) command);
@@ -96,29 +119,6 @@ public class ClientApplication implements Application {
         } catch (IOException | ClassNotFoundException ioe){
             System.err.println(bundle.getString("problems_with_connection_message"));
             return null;
-        }
-    }
-
-    private void working() throws IOException, ClassNotFoundException {
-        command = consoleReader.readCommand();
-        if(command instanceof ExitCommand || command instanceof HelpCommand){
-            command.execute();
-        } else {
-            communicateWithServer(command);
-        }
-    }
-
-    private void communicateWithServer(Command command) throws ClassNotFoundException {
-        try {
-            SocketChannel socketChannel = connectionManager.openConnection(address, port);
-            Request request = requestWriter.writeRequest(command, auth);
-            requestSender.initOutputStream(socketChannel);
-            requestSender.sendRequest(request, socketChannel);
-            Response response = responseReader.getResponse(socketChannel);
-            clientWriter.write(response.getMessage());
-            socketChannel.close();
-        } catch (IOException ioe){
-            System.err.println(bundle.getString("problems_with_connection_message"));
         }
     }
 

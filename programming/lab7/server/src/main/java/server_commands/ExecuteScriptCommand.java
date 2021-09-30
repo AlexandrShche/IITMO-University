@@ -43,10 +43,11 @@ public class ExecuteScriptCommand implements Serializable, Cloneable, Command {
             log.Logback.getLogger().error(result);
             if(e.getMessage() != null) {
                 log.Logback.getLogger().error(e.getMessage());
+                log.Logback.getLogger().error("execute script error");
             } else{
                 log.Logback.getLogger().error(e.toString());
-                e.printStackTrace();
             }
+            e.printStackTrace();
         }
     }
 

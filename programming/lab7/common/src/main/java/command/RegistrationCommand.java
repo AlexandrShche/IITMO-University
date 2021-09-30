@@ -7,13 +7,6 @@ import java.io.IOException;
 import java.io.Serializable;
 
 public class RegistrationCommand extends UsersCommand implements Serializable {
-    private String login;
-    private String password;
-
-    public RegistrationCommand(String login, String password){
-        this.login = login;
-        this.password = password;
-    }
 
     public RegistrationCommand(){
 
@@ -25,12 +18,6 @@ public class RegistrationCommand extends UsersCommand implements Serializable {
 
     public String getPassword(){
         return password;
-    }
-
-
-    @Override
-    public void setSimpleArg(String s) {
-
     }
 
     @Override

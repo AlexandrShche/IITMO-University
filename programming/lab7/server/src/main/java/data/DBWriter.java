@@ -47,8 +47,14 @@ public class DBWriter implements DataWriter {
     }
 
     @Override
-    public void addUser(Auth auth) {
-
+    public void addUser(Auth auth) throws DBException {
+        try (PreparedStatement stm = connection.prepareStatement("insert into users (login, password) values (?, ?)")){
+            stm.setString(1, auth.getLogin());
+            stm.setString(2, auth.getPassword());
+            stm.executeUpdate();
+        } catch (SQLException e) {
+            throw new DBException(e);
+        }
     }
 
     private void setWorkerToStatement(Worker worker, PreparedStatement stm) throws SQLException {
