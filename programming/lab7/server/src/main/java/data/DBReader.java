@@ -1,5 +1,6 @@
 package data;
 
+import hash.SHA224Generator;
 import user.Auth;
 import exceptions.DBException;
 import exceptions.InvalidWorkerFieldException;

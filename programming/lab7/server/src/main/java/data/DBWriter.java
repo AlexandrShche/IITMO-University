@@ -1,5 +1,6 @@
 package data;
 
+import hash.SHA224Generator;
 import user.Auth;
 import exceptions.DBException;
 import worker.Worker;
@@ -50,7 +51,7 @@ public class DBWriter implements DataWriter {
     public void addUser(Auth auth) throws DBException {
         try (PreparedStatement stm = connection.prepareStatement("insert into users (login, password) values (?, ?)")){
             stm.setString(1, auth.getLogin());
-            stm.setString(2, auth.getPassword());
+            stm.setString(2, SHA224Generator.getHash(auth.getPassword()));
             stm.executeUpdate();
         } catch (SQLException e) {
             throw new DBException(e);
