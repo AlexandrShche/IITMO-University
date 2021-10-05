@@ -37,13 +37,9 @@ public class DBManager implements DataManager {
         return dataReader.getElement(id);
     }
 
-    @Override
-    public void clearElements(Auth auth) {
-        dataWriter.clearElements(auth);
-    }
 
     @Override
-    public void removeElement(long id, Auth auth) {
+    public void removeElement(long id, Auth auth) throws DBException {
         dataWriter.removeElement(id, auth);
     }
 

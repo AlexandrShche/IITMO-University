@@ -1,5 +1,6 @@
 package command;
 
+import hash.SHA224Generator;
 import worker.CollectionOfWorkersManager;
 
 import java.io.IOException;
@@ -20,7 +21,7 @@ public abstract class UsersCommand implements SimpleCommandWithArg, Serializable
     public void setSimpleArg(String s) {
         String[] strings = s.split("\\s+");
         setLogin(strings[0]);
-        setPassword(strings[1]);
+        setPassword(SHA224Generator.getHash(strings[1]));
     }
 
     @Override

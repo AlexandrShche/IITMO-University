@@ -12,7 +12,6 @@ public interface CollectionOfWorkersManager {
     String getInfo();
     void updateWorkerById(long id, Worker worker, Auth auth);
     void removeById(long id, Auth auth);
-    void clear(Auth auth);
     Worker getHead();
     Worker removeHead(Auth auth);
     void addIfMin(Worker worker, Auth auth);

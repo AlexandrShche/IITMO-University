@@ -7,11 +7,9 @@ import worker.Worker;
 public interface DataWriter {
     void addElement(Worker worker, Auth auth) throws DBException;
 
-    void updateElement(Worker worker, long id, Auth auth);
+    void updateElement(Worker worker, long id, Auth auth) throws DBException;
 
-    void clearElements(Auth auth);
-
-    void removeElement(long id, Auth auth);
+    void removeElement(long id, Auth auth) throws DBException;
 
     void addUser(Auth auth) throws DBException;
 }

@@ -19,7 +19,8 @@ public abstract class CommandWithWorkerArg implements CommandWithArg, Serializab
 
     @Override
     public String toString(){
-        return "commandWithWorkerArg" + worker.toFormalString();
+        return "";
+       // return "commandWithWorkerArg" + worker.toFormalString();
     }
 
 

@@ -6,6 +6,7 @@ import command.RegistrationCommand;
 import command.UsersCommand;
 import data.DataManager;
 import exceptions.DBException;
+import hash.SHA224Generator;
 import user.Auth;
 import worker.CollectionOfWorkersManager;
 import command.Command;
@@ -35,7 +36,6 @@ public class CommandExecutorImpl implements CommandExecutor {
             if (command instanceof UsersCommand){
                 String login = ((UsersCommand) command).getLogin();
                 String password = ((UsersCommand) command).getPassword();
-                System.out.println(login+password);
                 Auth newAuth = new Auth(login, password);
                 if(command instanceof AuthorizationCommand){
                     if(authManager.checkAuth(newAuth)){

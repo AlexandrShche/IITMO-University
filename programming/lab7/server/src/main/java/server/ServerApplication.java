@@ -112,7 +112,7 @@ public class ServerApplication implements Application{
                             ((ExecuteScriptCommand) command).execute(collectionOfWorkersManager, str[1]);
                         } else {
                             Auth auth = new Auth("server", "Fk4Dl3igjeriehioefjlajie" );
-                            command.execute(collectionOfWorkersManager, null);
+                            command.execute(collectionOfWorkersManager, auth);
                         }
                     } else {
                         log.Logback.getLogger().error("unknowing command");
@@ -143,7 +143,6 @@ public class ServerApplication implements Application{
         Map<String, Command> result = new HashMap<>();
         result.put("add", new AddCommand());
         result.put("add_if_min", new AddIfMinCommand());
-        result.put("clear", new ClearCommand());
         result.put("remove_by_id", new RemoveByIdCommand());
         result.put("remove_head", new RemoveHeadCommand());
         result.put("update", new UpdateCommand());

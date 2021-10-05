@@ -1,5 +1,7 @@
 package data;
 
+import exceptions.InvalidWorkerFieldException;
+import exceptions.NoSuchWorkerException;
 import hash.SHA224Generator;
 import user.Auth;
 import exceptions.DBException;
@@ -33,25 +35,47 @@ public class DBWriter implements DataWriter {
     }
 
     @Override
-    public void updateElement(Worker worker, long id, Auth auth) {
-
+    public void updateElement(Worker worker, long id, Auth auth) throws DBException {
+        try (PreparedStatement stm = connection.prepareStatement("update workers set " +
+                "name = ?," +
+                "coordinates_x = ?," +
+                "coordinates_y = ?," +
+                "salary = ?," +
+                "position = ?," +
+                "status = ?," +
+                "creation_date = ?," +
+                "end_date = ?," +
+                "organization_name = ?," +
+                "where id = ? and author = ?")){
+            setWorkerToStatement(worker, stm);
+            stm.setInt(10 ,(int) id);
+            stm.setString(11, auth.getLogin());
+            if (stm.executeUpdate() < 1){
+                throw new NoSuchWorkerException();
+            }
+        } catch (SQLException e) {
+            throw new DBException(e);
+        }
     }
 
     @Override
-    public void clearElements(Auth auth) {
-
-    }
-
-    @Override
-    public void removeElement(long id, Auth auth) {
-
+    public void removeElement(long id, Auth auth) throws DBException {
+        try (PreparedStatement stm = connection.prepareStatement("delete from workers where id = ? and author = ?")){
+            stm.setInt(1, (int) id);
+            stm.setString(2, auth.getLogin());
+            if (stm.executeUpdate() < 1){
+                throw new NoSuchWorkerException();
+            }
+        } catch (SQLException e) {
+            throw new DBException(e);
+        }
     }
 
     @Override
     public void addUser(Auth auth) throws DBException {
         try (PreparedStatement stm = connection.prepareStatement("insert into users (login, password) values (?, ?)")){
             stm.setString(1, auth.getLogin());
-            stm.setString(2, SHA224Generator.getHash(auth.getPassword()));
+            stm.setString(2, auth.getPassword());
             stm.executeUpdate();
         } catch (SQLException e) {
             throw new DBException(e);
@@ -66,7 +90,7 @@ public class DBWriter implements DataWriter {
         stm.setString(5, String.valueOf(worker.getPosition()));
         stm.setString(6, String.valueOf(worker.getStatus()));
         stm.setDate(7, Date.valueOf(worker.getCreationDate().toLocalDate()));
-        if(worker.getEndDate()==null){
+        if(worker.getEndDate()== null){
             stm.setDate(8, null);
         } else {
             stm.setDate(8, Date.valueOf(String.valueOf(ZonedDateTime.from(worker.getEndDate()))));

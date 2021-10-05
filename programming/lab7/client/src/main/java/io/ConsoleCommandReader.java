@@ -55,6 +55,9 @@ public class ConsoleCommandReader implements CommandReader {
                 if (input[2] != null){
                     ((SimpleCommandWithArg) command).setSimpleArg(input[1] + " " + input[2]);
                 }
+            } catch (ArrayIndexOutOfBoundsException ignored){
+                if(input[1] != null)
+                    ((SimpleCommandWithArg) command).setSimpleArg(input[1]);
             } catch (IndexOutOfBoundsException iobe){
                 throw new UnknownCommandException();
             }

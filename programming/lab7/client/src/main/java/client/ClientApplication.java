@@ -131,7 +131,6 @@ public class ClientApplication implements Application {
         HashMap<String, Command> commands = new HashMap<>();
         commands.put("add", new AddCommand());
         commands.put("add_if_min", new AddIfMinCommand());
-        commands.put("clear", new ClearCommand());
         commands.put("count_less_than_organization", new CountLessThanOrganizationCommand());
         commands.put("exit", new ExitCommand(this));
         commands.put("head", new HeadCommand());

@@ -13,6 +13,7 @@ public class UpdateCommand extends CommandWithWorkerArg implements SimpleCommand
     @Override
     public void setSimpleArg(String s) {
         id = Long.parseLong(s);
+        System.out.println(id + s);
     }
 
     @Override

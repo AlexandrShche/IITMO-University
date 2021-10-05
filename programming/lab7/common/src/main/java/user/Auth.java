@@ -11,7 +11,8 @@ public class Auth implements Serializable {
 
     public Auth(String login, String password) {
         this.login = login;
-        this.password = SHA224Generator.getHash(password);
+        this.password = password;
+       // this.password = SHA224Generator.getHash(password);
     }
 
     public static Auth parse(String s) {
