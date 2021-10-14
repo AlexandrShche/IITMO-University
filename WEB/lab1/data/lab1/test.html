@@ -1,43 +1,103 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <title>rectExample</title>
+    <meta charset='utf-8' />
 </head>
 <body>
-<div>
-    <a href="https://www.google.com/" id="id"> ГИПЕРССЫЛКА</a>
-        <p>
-            Привет, Андрей! <br>
-            Ну где ты был? Ну обними меня скорей
-        </p>
+<canvas id='canvas'>Обновите браузер</canvas>
 
-        <a href="https://www.google.com/"> ГИПЕРССЫЛКА </a>
-    </div>
 </body>
 </html>
 
 
-<style>
-    body #id{
-        color: red;
-    }
-
-    /*a#id{*/
-    /*    display: none;*/
-    /*    opacity: 0;*/
-    /*}*/
-
-
-    a:hover {
-        opacity: 0;
-    }
-</style>
-
-
 <script>
-    let a = document.querySelectorAll("a");
-    a.forEach(function (item){
-        item.remove();
-    })
+    let canvas = document.getElementById("canvas"),
+        context = canvas.getContext("2d");
+    canvas.width = 500;
+    canvas.height = 500;
+    context.fillStyle = "#4a50f8"       //цвет заполнения
+
+    context.fillRect(50, 250, 200, 200);
+    context.beginPath();
+    context.moveTo(250, 250);
+    context.lineTo(450, 250);
+    context.lineTo(250, 150);
+    context.fill();
+    context.moveTo(250, 250);
+    context.arc(250, 250, 100, 0, Math.PI * -3/2, false);
+    context.fill();
+
+    context.beginPath();
+    context.strokeStyle = "#000000";
+    context.lineWidth = 2;
+    context.moveTo(0, 250);
+    context.lineTo(500, 250);
+    context.stroke();
+    context.beginPath();
+    context.strokeStyle = "#000000";
+    context.lineWidth = 2;
+    context.moveTo(250, 500);
+    context.lineTo(250, 0);
+    context.stroke();
+
+    context.font='15pt Arial'
+    context.fillStyle = "#000000";
+    context.fillText("R/2", 340, 245);
+    context.fillText("-R/2", 255, 350);
+    context.fillText("-R/2", 150, 245);
+    context.fillText("R/2", 255, 150);
+
+    context.fillText("R", 445, 245);
+    context.fillText("R", 255, 50);
+    context.fillText("-R", 50, 245);
+    context.fillText("R", 255, 450);
+
+    context.fillText("Y", 255, 18);
+    context.fillText("X", 485, 245);
+
+    context.fillText("-", 246.5, 55);
+    context.fillText("-", 246.5, 155);
+    context.fillText("-", 246.5, 355);
+    context.fillText("-", 246.5, 455);
+
+    context.font='10pt Arial'
+    context.fillText("l", 49, 255);
+    context.fillText("l", 150, 255);
+    context.fillText("l", 349, 255);
+    context.fillText("l", 448, 255);
+
+    drawPoints();
+
+
+    function drawPoint(x, y, result) {
+        let canvas = document.getElementById("canvas"),
+            context = canvas.getContext("2d");
+        context.strokeStyle = "#ffffff";
+        if (result.toString().trim() === 'false') {
+            context.fillStyle = "#FF2A1F";
+        } else {
+            context.fillStyle = "#5FFF33";
+        }
+        context.beginPath();
+        context.arc(x, y, 5, 0, 2 * Math.PI);
+        context.fill();
+        context.stroke();
+        context.closePath();
+    }
+
+    function drawPoints() {
+        let Xs = Array.from(document.getElementsByClassName("the_X")).map(v => v.innerHTML);
+        let Ys = Array.from(document.getElementsByClassName("the_Y")).map(v => v.innerHTML);
+        let Rs = Array.from(document.getElementsByClassName("the_R")).map(v => v.innerHTML);
+        let Results = Array.from(document.getElementsByClassName("the_Result")).map(v => v.innerHTML);
+        for (let i = 0; i < Xs.length; i++) {
+            drawRawPoint(Xs[i], Ys[i], Rs[i], Results[i])
+        }
+    }
+
+    function drawRawPoint(x, y, r, res) {
+        drawPoint(x / r * 400 / 2 + 250, y / r * (-400) / 2 + 250, res);
+    }
+
 </script>

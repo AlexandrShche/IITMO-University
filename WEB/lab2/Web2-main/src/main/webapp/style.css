@@ -1,0 +1,103 @@
+:root {
+    --primary-color: #f5f5f5;
+    --background-color: #666666;
+    --secondary-color: #242424;
+}
+
+body {
+    background-image: url(images/white-background.png);
+    background-size: 40%;
+    background-repeat: repeat;
+    background-color: var(--background-color);
+    text-align: center;
+    font-family: monospace; /*наследование (шрифт)*/
+    margin: auto;
+    padding: 0;
+    color: var(--primary-color);
+}
+
+header {
+    background-color: var(--secondary-color);
+    padding: 20px;
+}
+
+#author { /*селектор идентификаторов*/
+    font-family: monospace;
+    font-weight: bolder;
+    font-size: 200%;
+    position: relative;
+    color: var(--primary-color);
+}
+
+#enter-text {
+    font-family: sans-serif; /* каскадирование */
+    font-size: 200%;
+    color: var(--primary-color);
+
+}
+
+canvas {
+    cursor: pointer;
+}
+
+button { /*селектор  элементов*/
+    color: var(--background-color);
+    text-align: center;
+    padding: 1% 2%;
+    margin: 2%;
+    background: var(--primary-color);
+    border: outset;
+    border-color: var(--secondary-color);
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+input {
+    color: var(--primary-color);
+    border-width: thick;
+    border-style: outset;
+    border-color: var(--secondary-color);
+    border-radius: 5px;
+    font-size: 80%;
+}
+
+.page_table {
+    margin: auto;
+}
+
+.result_table { /* селектор классов */
+    width: 100%;
+    font-size: 100%;
+    border: solid;
+    border-color: var(--secondary-color);
+    border-radius: 5px;
+    text-align: center;
+    font-style: normal;
+    color: var(--primary-color);
+    background-color: var(--background-color);
+    border-spacing: 15px;
+}
+
+td {
+    text-align: center;
+}
+
+.vars_table {
+    margin: auto;
+}
+
+#time {
+    color: var(--primary-color);
+}
+
+#Y_field {
+    color: var(--background-color);
+}
+
+#err_msg {
+    background: red;
+    color: var(--background-color);
+    border: solid;
+    border-color: var(--secondary-color);
+    border-radius: 5px;
+}
