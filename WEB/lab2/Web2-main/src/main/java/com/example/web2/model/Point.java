@@ -1,15 +1,12 @@
 package com.example.web2.model;
 
 public class Point implements Comparable<Point>{
-    private double x;
-    private double y;
-    private double r;
+    private final double x;
+    private final double y;
+    private final double r;
     private boolean result;
     private boolean valid;
     private Clock clock;
-
-    public Point() {
-    }
 
     public Point(double x, double y, double r) {
         this.x = x;
@@ -22,24 +19,12 @@ public class Point implements Comparable<Point>{
         return x;
     }
 
-    public void setX(double x) {
-        this.x = x;
-    }
-
     public double getY() {
         return y;
     }
 
-    public void setY(double y) {
-        this.y = y;
-    }
-
     public double getR() {
         return r;
-    }
-
-    public void setR(double r) {
-        this.r = r;
     }
 
     public boolean getResult() {

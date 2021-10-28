@@ -1,9 +1,7 @@
 package com.example.web2.model;
 
-import javax.servlet.Servlet;
-import javax.servlet.ServletConfig;
-import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
+import javax.servlet.*;
+import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -28,17 +26,37 @@ public class Results {
 }
 
 
-public class Results  implements Servlet {
-    private ServletConfig config;
-
-    @Override
-    public void init(ServletConfig config) throws ServletException {
-        this.config = config;
-        ServletContext sc = config.getServletContext();
-        sc.log("init");
-        sc.setAttribute();
-    }
-
-
-}
+//public class Results  implements Servlet {
+//    private ServletConfig config;
+//
+//    @Override
+//    public void init(ServletConfig config) throws ServletException {
+//        this.config = config;
+//        ServletContext sc = config.getServletContext();
+//        sc.log("init");
+////        sc.setAttribute();
+//    }
+//
+//    @Override
+//    public ServletConfig getServletConfig() {
+//        return null;
+//    }
+//
+//    @Override
+//    public void service(ServletRequest servletRequest, ServletResponse servletResponse) throws ServletException, IOException {
+//
+//    }
+//
+//    @Override
+//    public String getServletInfo() {
+//        return null;
+//    }
+//
+//    @Override
+//    public void destroy() {
+//
+//    }
+//
+//
+//}
 

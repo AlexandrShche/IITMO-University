@@ -1,7 +1,7 @@
 <%@ page import="com.example.web2.model.Point" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <table align="center" class="result_table">
-    <jsp:useBean id="results" class="com.example.web2.model.Results" scope="session"/>
+    <jsp:useBean id="results" class="com.example.web2.model.Results" scope="application"/>
     <thead>
     <tr>
         <th class="variable">X</th>
@@ -33,4 +33,4 @@
         }
     %>
     </tbody>
-</table>
+x</table>

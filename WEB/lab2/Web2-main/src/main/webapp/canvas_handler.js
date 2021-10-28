@@ -3,56 +3,88 @@ function drawCanvas() {
     let context = canvas.getContext("2d");
     canvas.width = 500;
     canvas.height = 500;
+
+    //фигуры
     context.fillStyle = "#4a50f8"       //цвет заполнения фигур
-
-    context.fillRect(50, 250, 200, 200);
+    context.fillRect(canvas.width * 0.1, canvas.height/2, canvas.width * 0.4, canvas.height * 0.4);
     context.beginPath();
-    context.moveTo(250, 250);
-    context.lineTo(450, 250);
-    context.lineTo(250, 150);
+    context.moveTo(canvas.width/2, canvas.height/2);
+    context.lineTo(canvas.width - canvas.width * 0.1, canvas.height/2);
+    context.lineTo(canvas.width/2, canvas.height*0.3);
     context.fill();
-    context.moveTo(250, 250);
-    context.arc(250, 250, 100, 0, Math.PI * -3/2, false);
+    context.moveTo(canvas.width/2, canvas.height/2);
+    context.arc(canvas.width/2, canvas.height/2, 100, 0, Math.PI * -3/2, false);
     context.fill();
 
+    // линии
     context.beginPath();
     context.strokeStyle = "#000000";
     context.lineWidth = 2;
-    context.moveTo(0, 250);
-    context.lineTo(500, 250);
+    context.moveTo(0, canvas.height/2);
+    context.lineTo(canvas.width, canvas.height/2);
     context.stroke();
     context.beginPath();
     context.strokeStyle = "#000000";
     context.lineWidth = 2;
-    context.moveTo(250, 500);
-    context.lineTo(250, 0);
+    context.moveTo(canvas.width/2, canvas.height);
+    context.lineTo(canvas.width/2, 0);
     context.stroke();
 
     context.font='15pt Arial'
     context.fillStyle = "#000000";
-    context.fillText("R/2", 340, 245);
-    context.fillText("-R/2", 255, 350);
-    context.fillText("-R/2", 150, 245);
-    context.fillText("R/2", 255, 150);
+    context.fillText("R/2", canvas.width * 0.68, canvas.height/2 - 5);
+    context.fillText("-R/2", canvas.width/2 + 5,  canvas.height * 0.7);
+    context.fillText("-R/2", canvas.width * 0.3, canvas.height/2 - 5);
+    context.fillText("R/2", canvas.width/2 + 5, canvas.height * 0.3);
 
-    context.fillText("R", 445, 245);
-    context.fillText("R", 255, 50);
-    context.fillText("-R", 50, 245);
-    context.fillText("R", 255, 450);
+    context.fillText("R", canvas.width * 0.9, canvas.height/2 - 5);
+    context.fillText("R", canvas.width/2 + 5, canvas.height * 0.1);
+    context.fillText("-R", canvas.width * 0.1, canvas.height/2 - 5);
+    context.fillText("R", canvas.width/2 + 5, canvas.height * 0.9);
 
-    context.fillText("Y", 255, 18);
-    context.fillText("X", 485, 245);
+    context.fillText("Y", canvas.width/2 + 5, 18);
+    context.fillText("X", canvas.width * 0.95, canvas.height/2 - 5);
 
-    context.fillText("-", 246.5, 55);
-    context.fillText("-", 246.5, 155);
-    context.fillText("-", 246.5, 355);
-    context.fillText("-", 246.5, 455);
+    // правая стрелочка
+    context.beginPath();
+    context.lineWidth = 2;
+    context.moveTo(canvas.width*0.99, canvas.height * 0.51);
+    context.lineTo(canvas.width*0.995, canvas.height/2);
+    context.lineTo(canvas.width*0.99, canvas.height * 0.49);
+    context.stroke();
 
-    context.font='10pt Arial'
-    context.fillText("l", 49, 255);
-    context.fillText("l", 150, 255);
-    context.fillText("l", 349, 255);
-    context.fillText("l", 448, 255);
+    // верхняя стрелочка
+    context.beginPath();
+    context.lineWidth = 2;
+    context.moveTo(canvas.width * 0.51, canvas.height * 0.01);
+    context.lineTo(canvas.width/2, canvas.height * 0.005);
+    context.lineTo(canvas.width * 0.49, canvas.height * 0.01);
+    context.stroke();
+
+    //отмеченные точки на вертикальной прямой
+    context.beginPath();
+    context.lineWidth = 2;
+    context.moveTo(canvas.width/2 * 0.99 , canvas.height * 0.1);
+    context.lineTo(canvas.width/2 * 1.01 , canvas.height * 0.1);
+    context.moveTo(canvas.width/2 * 0.99 , canvas.height * 0.3);
+    context.lineTo(canvas.width/2 * 1.01 , canvas.height * 0.3);
+    context.moveTo(canvas.width/2 * 0.99 , canvas.height * 0.7);
+    context.lineTo(canvas.width/2 * 1.01 , canvas.height * 0.7);
+    context.moveTo(canvas.width/2 * 0.99 , canvas.height * 0.9);
+    context.lineTo(canvas.width/2 * 1.01 , canvas.height * 0.9);
+    context.stroke();
+
+    //отмеченные точки на горизонтальной прямой
+    context.beginPath();
+    context.moveTo(canvas.width * 0.1, canvas.height/2 * 0.99);
+    context.lineTo(canvas.width * 0.1, canvas.height/2 * 1.01);
+    context.moveTo(canvas.width * 0.3, canvas.height/2 * 0.99);
+    context.lineTo(canvas.width * 0.3, canvas.height/2 * 1.01);
+    context.moveTo(canvas.width * 0.7, canvas.height/2 * 0.99);
+    context.lineTo(canvas.width * 0.7, canvas.height/2 * 1.01);
+    context.moveTo(canvas.width * 0.9, canvas.height/2 * 0.99);
+    context.lineTo(canvas.width * 0.9, canvas.height/2 * 1.01);
+    context.stroke();
     drawPoints();
 }
 

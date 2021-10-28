@@ -7,7 +7,6 @@ import java.util.Locale;
 public class Clock implements Comparable<Clock>{
     private final String dateString;
     private double start;
-    private double finish;
     private final Date date;
 
     public Clock() {
@@ -21,19 +20,11 @@ public class Clock implements Comparable<Clock>{
     }
 
     public void finish() {
-        finish = (double) System.currentTimeMillis() * 1e6 - start;
+        double finish = (double) System.currentTimeMillis() * 1e6 - start;
     }
 
     public String getDateString() {
         return dateString;
-    }
-
-    public double getStart() {
-        return start;
-    }
-
-    public double getFinish() {
-        return finish;
     }
 
     @Override
