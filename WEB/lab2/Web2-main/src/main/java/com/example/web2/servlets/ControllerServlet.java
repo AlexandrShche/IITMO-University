@@ -1,5 +1,6 @@
 package com.example.web2.servlets;
 
+import javax.validation.constraints.NotNull;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -18,7 +19,7 @@ public class ControllerServlet extends HttpServlet {
             } else {
                 getServletContext().getRequestDispatcher("/index.jsp").forward(req, resp);
             }
-        } catch (NullPointerException | NumberFormatException e) {
+        } catch (NumberFormatException e) {
             System.out.println(e.getClass());
             getServletContext().getRequestDispatcher("/index.jsp").forward(req, resp);
         } catch (Error error){
