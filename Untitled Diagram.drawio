@@ -1,1 +1,62 @@
-<mxfile host="app.diagrams.net" modified="2022-04-20T13:41:37.835Z" agent="5.0 (X11)" version="17.4.6" etag="3Kb0Ku_yTtQPHDJVug0b" type="github"><diagram id="vhKWrlRKM-LnV_myIyhO">UzV2zq1wL0osyPDNT0nNUTV2VTV2LsrPL4GwciucU3NyVI0MMlNUjV1UjYwMgFjVyA2HrCFY1qAgsSg1rwSLBiADYTaQg2Y1AA==</diagram></mxfile>
+<mxfile host="app.diagrams.net" modified="2022-04-20T13:54:24.414Z" agent="5.0 (X11)" etag="SbYSXgO0h6anfwwOc93s" version="17.4.6" type="github">
+  <diagram id="vhKWrlRKM-LnV_myIyhO" name="Page-1">
+    <mxGraphModel dx="1102" dy="568" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="vhM_6dSjjzOQipdnff9v-22" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="vhM_6dSjjzOQipdnff9v-8" target="vhM_6dSjjzOQipdnff9v-9">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="320" y="260" />
+              <mxPoint x="320" y="260" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="vhM_6dSjjzOQipdnff9v-8" value="Студент: Щербаков А.В" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;" vertex="1" parent="1">
+          <mxGeometry x="90" y="40" width="160" height="370" as="geometry" />
+        </mxCell>
+        <mxCell id="vhM_6dSjjzOQipdnff9v-21" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;" vertex="1" parent="vhM_6dSjjzOQipdnff9v-8">
+          <mxGeometry x="75" y="110" width="10" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="vhM_6dSjjzOQipdnff9v-27" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="vhM_6dSjjzOQipdnff9v-9" target="vhM_6dSjjzOQipdnff9v-8">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="320" y="340" />
+              <mxPoint x="320" y="340" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="vhM_6dSjjzOQipdnff9v-9" value="Троль: Цопа Е.А" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;collapsible=0;recursiveResize=0;outlineConnect=0;" vertex="1" parent="1">
+          <mxGeometry x="430" y="40" width="100" height="370" as="geometry" />
+        </mxCell>
+        <mxCell id="vhM_6dSjjzOQipdnff9v-10" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;" vertex="1" parent="vhM_6dSjjzOQipdnff9v-9">
+          <mxGeometry x="45" y="80" width="10" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="vhM_6dSjjzOQipdnff9v-24" value="" style="html=1;points=[];perimeter=orthogonalPerimeter;" vertex="1" parent="vhM_6dSjjzOQipdnff9v-9">
+          <mxGeometry x="45" y="220" width="10" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="vhM_6dSjjzOQipdnff9v-11" value="Принести лабу" style="html=1;verticalAlign=bottom;endArrow=block;entryX=1;entryY=0;rounded=0;" edge="1" target="vhM_6dSjjzOQipdnff9v-10" parent="1" source="vhM_6dSjjzOQipdnff9v-8">
+          <mxGeometry x="0.0419" relative="1" as="geometry">
+            <mxPoint x="480" y="120" as="sourcePoint" />
+            <mxPoint x="1" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="vhM_6dSjjzOQipdnff9v-17" value="" style="edgeStyle=elbowEdgeStyle;fontSize=12;html=1;endArrow=blockThin;endFill=1;rounded=0;exitX=0.6;exitY=1.017;exitDx=0;exitDy=0;exitPerimeter=0;" edge="1" parent="1" source="vhM_6dSjjzOQipdnff9v-10">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="340" y="300" as="sourcePoint" />
+            <mxPoint x="170" y="150" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="vhM_6dSjjzOQipdnff9v-18" value="Задать вопросы" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="280" y="130" width="100" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="vhM_6dSjjzOQipdnff9v-23" value="рассказать про диаграммы" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="245" y="240" width="170" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="vhM_6dSjjzOQipdnff9v-28" value="пожалеть" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="300" y="320" width="70" height="20" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
