@@ -1,20 +1,0 @@
-Type: worker
-id: 0
-name: default
-coordinates: X: 0.0Y: 0.0
-'creation date: 2021-08-16T05:11:34.237
-salary: 0.0
-end date: no date specified
-position: MANAGER
-status: FIRED
-(organization: no organization specified
-Type: worker
-id: 0
-name: default
-coordinates: X: nullY: 0.0
-'creation date: 2021-08-16T05:11:34.237
-salary: 0.0
-end date: no date specified
-position: MANAGER
-status: FIRED
-(organization: no organization specified

@@ -1,9 +1,0 @@
-collection/ListOfWorkerManagerTest.java
- collection.ListOfWorkerManagerTest
-collection/JSONFileWorkerWriterTest.java
- collection.JSONFileWorkerWriterTest
-command_execution/CommandExecutorImplTest.java
- command_execution.CommandExecutorImplTest
- command_execution.CommandExecutorImplTest$1
-command_execution/ScriptReaderImplTest.java
- command_execution.ScriptReaderImplTest

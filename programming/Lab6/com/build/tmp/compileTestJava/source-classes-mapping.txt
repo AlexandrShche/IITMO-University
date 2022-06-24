@@ -1,4 +1,0 @@
-worker/OrdinaryWorkerTest.java
- worker.OrdinaryWorkerTest
-command/AddCommandTest.java
- command.AddCommandTest

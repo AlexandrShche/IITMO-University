@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="command.AddCommandTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2021-08-24T13:46:18" hostname="alexander-IdeaPad-3-15IIL05" time="0.028">
-  <properties/>
-  <testcase name="testEquals()" classname="command.AddCommandTest" time="0.028"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>
