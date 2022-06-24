@@ -1,2 +1,2 @@
-# University
-my homework assignments at University
+# HomeWorks
+Выполненные лабораторные раобты и некоторые другие задания первого курса СППО ИТМО.
